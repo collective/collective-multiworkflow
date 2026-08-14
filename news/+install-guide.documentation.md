@@ -1,0 +1,1 @@
+Corrected the installation guide: the Volto add-on is added as a frontend dependency and registered in `volto.config.js`, and the backend profile is installed through a GenericSetup dependency or the add-ons control panel rather than a call to `runAllImportStepsFromProfile`. @ericof

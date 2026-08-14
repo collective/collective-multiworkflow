@@ -11,14 +11,14 @@ myst:
 
 # How to install `collective.multiworkflow`
 
-This guide shows you how to add the package to an existing Plone 6 project, backend and frontend.
+This guide shows you how to add the package to an existing Plone 6.2 project, backend and frontend.
 
 Installing it changes nothing about your content types.
 It adds one catalog index and waits for a behavior to declare a contribution.
 
 ## Prerequisites
 
-- A Plone 6 project with a backend and, if you use it, a Volto frontend.
+- A Plone 6.2 project with a backend and, if you use it, a Volto frontend.
 - Python 3.11 or later.
 
 ## 1. Add the backend package
@@ -43,20 +43,28 @@ You do not need a `<include />` for it.
 
 ## 2. Add the Volto add-on
 
-Add `@plone-collective/volto-multiworkflow` to your frontend and register it in `volto.config.js`.
+Add the package to the dependencies of your frontend.
+
+```shell
+cd frontend
+pnpm add @plone-collective/volto-multiworkflow
+```
+
+Then register it in `frontend/volto.config.js`, so Volto loads its configuration and its component shadows.
 
 ```js
 const addons = ["@plone-collective/volto-multiworkflow"];
+const theme = "";
 
 module.exports = {
   addons,
+  theme,
 };
 ```
 
-Then install the frontend dependencies.
-
-```shell
-make frontend-install
+```{important}
+Adding the dependency is not enough on its own.
+An add-on that is installed but not listed in `addons` contributes nothing: its reducer is never registered, and its shadows are never resolved.
 ```
 
 The add-on shadows Volto's `Workflow` and `History` components.
@@ -64,16 +72,23 @@ Both shadows render exactly as upstream on content that has no additional workfl
 
 ## 3. Install the add-on in your site
 
-Install **Multi-Workflow Support for Plone** from the add-ons control panel, or apply its profile from a setup handler.
+Declare the profile as a dependency of your policy package's own profile, in `profiles/default/metadata.xml`.
 
-```python
-from plone import api
-
-setup_tool = api.portal.get_tool("portal_setup")
-setup_tool.runAllImportStepsFromProfile("profile-collective.multiworkflow:default")
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <version>1000</version>
+  <dependencies>
+    <dependency>profile-collective.multiworkflow:default</dependency>
+  </dependencies>
+</metadata>
 ```
 
-This applies the `workflow_states` catalog index and the browser layer.
+Installing your policy package now installs this one with it, on every site you create, in the right order and with no manual step to forget.
+
+If you have no policy package, install **Multi-Workflow Support for Plone** from the {menuselection}`Site Setup --> Add-ons` control panel instead.
+
+Either route applies the `workflow_states` catalog index and the browser layer.
 See {doc}`/reference/profiles` for everything the profile touches.
 
 ## 4. Verify the installation
