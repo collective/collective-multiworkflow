@@ -19,11 +19,15 @@ Follow a tutorial from start to finish; every step produces a result you can see
 :hidden: true
 
 add-a-second-workflow
+manage-workflows-in-volto
 ```
 
 {doc}`add-a-second-workflow`
 :   Give a content type a membership workflow that runs alongside publication, transition it without disturbing `review_state`, and find the content again with a catalog query.
     Start here.
+
+{doc}`manage-workflows-in-volto`
+:   Drive that second workflow from the Volto interface, and read a history that spans both workflows.
 
 ```{seealso}
 The Diátaxis framework calls this class of documentation [tutorials](https://diataxis.fr/tutorials/).

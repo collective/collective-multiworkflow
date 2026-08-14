@@ -3,6 +3,7 @@ DCWorkflow
 [Dd]eduplicated
 [Mm]isconfigured
 [Nn]amespace
+Ortegas
 [Pp]laceful
 [Qq]ueryable
 [Rr]eindex(es|ed|ing)?
