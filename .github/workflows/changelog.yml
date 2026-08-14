@@ -20,6 +20,7 @@ jobs:
 
   checks:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip changelog') }}
     needs:
       - config
     steps:
