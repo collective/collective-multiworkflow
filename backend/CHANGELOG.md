@@ -8,3 +8,15 @@
 -->
 
 <!-- towncrier release notes start -->
+
+## 1.0.0a1 (2026-08-14)
+
+
+### Feature
+
+- Added support for assigning additional workflows to content types through behaviors. A behavior marker extending `IAdditionalWorkflows` declares the workflows it contributes with a `<plone:additionalworkflows />` ZCML directive, and those are appended to the type's configured workflow chain — never replacing it. An additional workflow leaves `review_state` untouched, and may manage permissions of its own as long as the sets are disjoint across the chain — `conflicting_permissions` audits an object for overlap. The whole chain is searchable through one `workflow_states` KeywordIndex and metadata column, whose values read `<workflow-id>|<state-id>` in chain order with the type's configured workflow always first, so a site gains no further indexes as more workflows are contributed; a workflow adopting `workflow_states` as its `state_variable` is reindexed by CMFCore itself, and one keeping a state variable of its own is kept fresh by a transition subscriber. Additional workflows are exposed through workflow-aware API helpers, a `chain` key on the `@workflow` REST API endpoint, and an `@history` listing that merges every workflow's transitions into one stream, each entry tagged with its `workflow_id`. Content without a participating behavior is unaffected, and the package ships no behavior of its own — the worked example lives in the `collective.multiworkflow.demo` subpackage, which is not loaded by default. @ericof 
+
+
+### Documentation
+
+- Stated the supported Plone version as 6.2 in the readme, matching the package classifiers. @ericof

@@ -1,1 +1,0 @@
-Fixed the CI workflow not starting on a push. Its `paths` filter was `*`, which matches only files at the repository root, so any change confined to `backend/`, `frontend/`, `docs/` or `news/` triggered no run. Per-area gating already happens in the `config` job. @ericof

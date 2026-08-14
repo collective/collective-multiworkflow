@@ -1,1 +1,0 @@
-Added two how-to guides: "How to consume the REST API", covering the `chain` key, transitions and the merged history from a client of your own, and "How to customize the Volto components", covering restyling, reuse, and shadowing. @ericof
