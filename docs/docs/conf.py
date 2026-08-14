@@ -93,6 +93,8 @@ linkcheck_ignore = [
     r"^/_static/",
     # Ignore pages that require authentication
     r"https://github.com/collective/collective-multiworkflow/issues/new",  # requires auth
+    # Ignore pages that block non-browser clients
+    r"https://www\.npmjs\.com/package/",  # answers 403 to anything but a browser
     # Ignore github.com pages with anchors
     r"https://github.com/.*#.*",
     # Ignore other specific anchors
