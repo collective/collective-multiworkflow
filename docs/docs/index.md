@@ -24,12 +24,16 @@ mw_api.get_states(member)
 {'simple_publication_workflow': 'published', 'membership_workflow': 'active'}
 ```
 
+```{warning}
+This documentation was written with Claude Opus 5, following the [Plone documentation style skill](https://github.com/plone/plone-doc-style-skill), and reviewed by a human being.
+```
+
 ## Where to start
 
 `````{grid} 1 1 2 2
 :gutter: 3
 
-````{grid-item-card} Tutorial
+````{grid-item-card} 🎓 Tutorial
 :link: tutorials/add-a-second-workflow
 :link-type: doc
 
@@ -38,7 +42,7 @@ Give a content type a second workflow and drive it end to end.
 Start here if the package is new to you.
 ````
 
-````{grid-item-card} How-to guides
+````{grid-item-card} 🛠️ How-to guides
 :link: how-to-guides/index
 :link-type: doc
 
@@ -47,7 +51,7 @@ Install the package, declare a contribution, search by an additional state.
 Directions toward a result.
 ````
 
-````{grid-item-card} Concepts
+````{grid-item-card} 💡 Concepts
 :link: concepts/index
 :link-type: doc
 
@@ -56,7 +60,7 @@ Why chains, why behaviors, why `review_state` is left alone.
 Understanding, away from the keyboard.
 ````
 
-````{grid-item-card} Reference
+````{grid-item-card} 📖 Reference
 :link: reference/index
 :link-type: doc
 
