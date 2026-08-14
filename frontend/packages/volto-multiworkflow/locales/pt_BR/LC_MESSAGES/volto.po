@@ -15,3 +15,83 @@ msgstr ""
 "Language-Name: Português do Brasil\n"
 "Preferred-Encodings: utf-8\n"
 "Domain: volto\n"
+
+#. Default: "Back"
+#: components/History/History
+msgid "Back"
+msgstr "Voltar"
+
+#. Default: "Change Note"
+#: components/History/HistoryTable
+msgid "Change Note"
+msgstr "Nota de Alteração"
+
+#. Default: "History"
+#: components/History/History
+msgid "History"
+msgstr "Histórico"
+
+#. Default: "#"
+#: components/History/HistoryTable
+msgid "History Version Number"
+msgstr "Versão"
+
+#. Default: "History of {title}"
+#: components/History/History
+msgid "History of {title}"
+msgstr "Histórico de {title}"
+
+#. Default: "No workflow"
+#: components/Workflow/Workflow
+msgid "No workflow"
+msgstr "Sem fluxo de trabalho"
+
+#. Default: "Revert to this revision"
+#: components/History/HistoryRow
+msgid "Revert to this revision"
+msgstr "Reverter para esta revisão"
+
+#. Default: "State"
+#: components/Workflow/Workflow
+msgid "State"
+msgstr "Estado"
+
+#. Default: "View changes"
+#: components/History/HistoryRow
+msgid "View changes"
+msgstr "Visualizar alterações"
+
+#. Default: "View this revision"
+#: components/History/HistoryRow
+msgid "View this revision"
+msgstr "Visualizar esta revisão"
+
+#. Default: "What"
+#: components/History/HistoryTable
+msgid "What"
+msgstr "O quê"
+
+#. Default: "When"
+#: components/History/HistoryTable
+msgid "When"
+msgstr "Quando"
+
+#. Default: "Who"
+#: components/History/HistoryTable
+msgid "Who"
+msgstr "Quem"
+
+#. Default: "Workflow"
+#: components/History/HistoryTable
+msgid "Workflow"
+msgstr "Fluxo de trabalho"
+
+#. Default: "Workflow updated."
+#: components/Workflow/Workflow
+msgid "Workflow updated."
+msgstr "Fluxo de trabalho atualizado."
+
+#. Default: "You can view the history of your item below."
+#: components/History/History
+msgid "You can view the history of your item below."
+msgstr "Você pode visualizar o histórico do seu item abaixo."
