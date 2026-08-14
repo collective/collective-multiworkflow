@@ -1,0 +1,45 @@
+from plone.app.vocabularies import SimpleTerm
+from plone.app.vocabularies import SimpleVocabulary
+
+import pytest
+
+
+class TestVocab:
+    name: str = "collective.multiworkflow.vocabularies.WorkflowStates"
+    vocab_type = SimpleVocabulary
+
+    @pytest.fixture(autouse=True)
+    def _setup(self, portal_class, get_vocabulary):
+        self.portal = portal_class
+        self.vocab = get_vocabulary(self.name, self.portal)
+
+    def test_vocabulary_type(self):
+        assert isinstance(self.vocab, self.vocab_type)
+
+    @pytest.mark.parametrize(
+        "token,title",
+        [
+            (
+                "foundation_member_workflow|pending",
+                "Membership: Pending",
+            ),
+            (
+                "foundation_member_workflow|lapsed",
+                "Membership: Lapsed",
+            ),
+            ("foundation_member_workflow|active", "Membership: Active"),
+            (
+                "simple_publication_workflow|private",
+                "Simple Publication Workflow: Private",
+            ),
+            (
+                "simple_publication_workflow|published",
+                "Simple Publication Workflow: Published",
+            ),
+        ],
+    )
+    def test_vocab_terms(self, token: str, title: str):
+        term = self.vocab.getTermByToken(token)
+        assert isinstance(term, SimpleTerm)
+        assert term.title == title
+        assert term.token == token

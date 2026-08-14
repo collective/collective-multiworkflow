@@ -1,0 +1,11 @@
+autoinclude
+DCWorkflow
+[Dd]eduplicated
+[Mm]isconfigured
+[Nn]amespace
+[Pp]laceful
+[Qq]ueryable
+[Rr]eindex(es|ed|ing)?
+[Ss]erializer(s)?
+[Ss]ubpackage(s)?
+[Ss]uperset

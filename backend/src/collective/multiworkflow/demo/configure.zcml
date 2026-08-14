@@ -1,0 +1,58 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.multiworkflow"
+    >
+
+  <!-- Example behavior. With no factory, plone.behavior applies the provided
+       interface to content as a marker, which is all the mechanism needs. -->
+  <plone:behavior
+      name="collective.multiworkflow.demo.foundation_member"
+      title="Foundation member"
+      description="Track a membership lifecycle alongside the publication workflow."
+      provides=".behavior.IFoundationMember"
+      />
+
+  <!-- Declares which workflows the marker contributes. Registers a
+       subscription adapter, so an object providing several participating
+       markers collects the contributions of all of them. -->
+  <plone:additionalworkflows
+      marker=".behavior.IFoundationMember"
+      workflows="foundation_member_workflow"
+      />
+
+  <!-- The example membership workflow manages this permission, to show an
+       additional workflow doing real access control: it is not one of the
+       three the publication workflow manages, so the two never overwrite each
+       other's role mappings. -->
+  <permission
+      id="collective.multiworkflow.ManageMembership"
+      title="collective.multiworkflow: Manage membership"
+      />
+
+  <!-- Register the demo profile. Configuration only: no handler, so applying
+       it is a plain GenericSetup import and stays inside the caller's
+       transaction. -->
+  <genericsetup:registerProfile
+      name="demo"
+      title="Multi-Workflow Support for Plone: Example behavior"
+      description="Install an example behavior that adds a membership workflow to Documents."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/demo"
+      />
+
+  <!-- Example content, kept apart from the profile above on purpose. The
+       importer commits as it goes, which would defeat the per-test rollback of
+       an integration layer, and the content it creates would show up in every
+       test that merely wanted the behavior installed. -->
+  <genericsetup:registerProfile
+      name="content"
+      title="Multi-Workflow Support for Plone: Example content"
+      description="Create example content showcasing the membership workflow."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/content"
+      post_handler=".setuphandlers.demo.create_example_content"
+      />
+
+</configure>

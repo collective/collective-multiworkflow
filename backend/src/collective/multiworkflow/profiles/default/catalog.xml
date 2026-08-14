@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object name="portal_catalog">
+  <!-- One index for the whole workflow chain, so a site gains no further
+       indexes as behaviors contribute more workflows. Values read
+       <workflow-id>|<state-id> and are in chain order, the workflow driving
+       review_state first. See collective.multiworkflow.indexers. -->
+  <index meta_type="KeywordIndex"
+         name="workflow_states"
+  >
+    <indexed_attr value="workflow_states" />
+  </index>
+  <column value="workflow_states" />
+</object>

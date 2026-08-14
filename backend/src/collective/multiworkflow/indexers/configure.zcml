@@ -1,0 +1,21 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- Indexers/Metadata -->
+
+  <!-- Shadows the workflow variable of the same name: plone.indexer's wrapper
+       asks for an IIndexer adapter before it looks at workflow variables, so
+       the catalog sees the whole chain rather than one workflow's state. -->
+  <adapter
+      factory=".workflow_states"
+      name="workflow_states"
+      />
+
+  <subscriber
+      for="Products.CMFCore.interfaces.IContentish
+           Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+      handler=".reindex_workflow_states"
+      />
+
+  <!-- -*- extra stuff goes here -*- -->
+
+</configure>

@@ -1,0 +1,8 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <utility
+      factory=".query_index_modifiers.ReviewStateModifier"
+      provides="plone.app.querystring.interfaces.IParsedQueryIndexModifier"
+      name="review_state"
+      />
+</configure>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rolemap>
+  <permissions>
+    <!-- Site-wide default. The membership workflow overrides it per state on
+         the content it applies to. -->
+    <permission acquire="False"
+                name="collective.multiworkflow: Manage membership"
+    >
+      <role name="Manager" />
+      <role name="Site Administrator" />
+    </permission>
+  </permissions>
+</rolemap>

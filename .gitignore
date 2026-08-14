@@ -1,0 +1,8 @@
+!.vscode
+node_modules
+/core
+/public
+*.mo
+
+# Local, machine-specific Claude Code notes
+.claude/*.local.*

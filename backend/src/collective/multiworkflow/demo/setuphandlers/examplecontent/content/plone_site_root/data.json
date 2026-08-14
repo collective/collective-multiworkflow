@@ -1,0 +1,102 @@
+{
+  "@id": "/Plone",
+  "@type": "Plone Site",
+  "UID": "plone_site_root",
+  "allow_discussion": null,
+  "blocks": {
+    "42913c82-f18e-406d-b6e6-6e512840c385": {
+      "@type": "slate",
+      "plaintext": "",
+      "value": [
+        {
+          "children": [
+            {
+              "text": ""
+            }
+          ],
+          "type": "p"
+        }
+      ]
+    },
+    "49d832a9-897f-400e-a273-8a6370c11eaa": {
+      "@type": "listing",
+      "headline": "Active Members",
+      "headlineTag": "h2",
+      "querystring": {
+        "query": [
+          {
+            "i": "portal_type",
+            "o": "plone.app.querystring.operation.selection.any",
+            "v": [
+              "Profile"
+            ]
+          },
+          {
+            "i": "review_state",
+            "o": "plone.app.querystring.operation.selection.any",
+            "v": [
+              "foundation_member_workflow|active"
+            ]
+          }
+        ],
+        "sort_order": "ascending"
+      },
+      "variation": "summary"
+    },
+    "5f31e9e4-173f-4ec1-ab48-64e9e2789b76": {
+      "@type": "title"
+    },
+    "8493023f-946d-4c16-924b-b5cbeb2ee613": {
+      "@type": "slate"
+    },
+    "ce05b06e-b853-49ac-97f7-abb9fb72a2dc": {
+      "@type": "slate",
+      "plaintext": "",
+      "value": [
+        {
+          "children": [
+            {
+              "text": ""
+            }
+          ],
+          "type": "p"
+        }
+      ]
+    }
+  },
+  "blocks_layout": {
+    "items": [
+      "5f31e9e4-173f-4ec1-ab48-64e9e2789b76",
+      "49d832a9-897f-400e-a273-8a6370c11eaa",
+      "8493023f-946d-4c16-924b-b5cbeb2ee613",
+      "ce05b06e-b853-49ac-97f7-abb9fb72a2dc",
+      "42913c82-f18e-406d-b6e6-6e512840c385"
+    ]
+  },
+  "contributors": [],
+  "creators": [
+    "admin"
+  ],
+  "description": "",
+  "effective": null,
+  "expires": null,
+  "exportimport.constrains": {},
+  "exportimport.conversation": [],
+  "id": "Plone",
+  "is_folderish": true,
+  "items_total": 1,
+  "language": "##DEFAULT##",
+  "layout": "document_view",
+  "lock": {
+    "locked": false,
+    "stealable": true
+  },
+  "review_state": null,
+  "rights": "",
+  "subjects": [],
+  "title": "Multiple Workflow support for Plone",
+  "type_title": "Plone Site",
+  "workflow_history": {},
+  "working_copy": null,
+  "working_copy_of": null
+}

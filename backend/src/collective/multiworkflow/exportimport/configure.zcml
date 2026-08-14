@@ -1,0 +1,6 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- No directives: loading this file is what imports the package, and
+       importing it is what applies the patch. See the module docstring. -->
+
+</configure>

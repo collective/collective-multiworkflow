@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/meta"
+    i18n_domain="collective.multiworkflow"
+    >
+
+  <!-- Loaded automatically in a Plone site: Products.CMFPlone's meta.zcml runs
+       autoIncludePlugins for meta.zcml, and this package declares the
+       plone.autoinclude.plugin entry point. Test layers, where autoinclude is
+       switched off, load it explicitly. -->
+  <directives namespace="http://namespaces.plone.org/plone">
+
+    <directive
+        name="additionalworkflows"
+        handler=".metaconfigure.additionalWorkflowsDirective"
+        schema=".metaconfigure.IAdditionalWorkflowsDirective"
+        />
+
+  </directives>
+
+</configure>

@@ -1,0 +1,32 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.multiworkflow"
+    >
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Multi-Workflow Support for Plone: Install"
+      description="Assign additional workflows to content types through behaviors, with full support in plone.restapi and Volto."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Multi-Workflow Support for Plone: Uninstall"
+      description="Uninstall Multi-Workflow Support for Plone setup."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
+      />
+
+  <!-- Hide Uninstall Profile-->
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="collective.multiworkflow"
+      />
+
+
+  <include package=".upgrades" />
+
+</configure>

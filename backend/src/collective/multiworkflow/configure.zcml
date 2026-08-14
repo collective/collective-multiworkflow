@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.multiworkflow"
+    >
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include
+      package="Products.CMFCore"
+      file="permissions.zcml"
+      />
+
+
+  <include file="dependencies.zcml" />
+  <include file="profiles.zcml" />
+  <include file="permissions.zcml" />
+
+  <!-- Loading this one applies a patch rather than registering anything; see
+       the package docstring for what it fixes and why it lives here. -->
+  <include package=".exportimport" />
+
+  <include package=".indexers" />
+  <include package=".querystring" />
+  <include package=".restapi" />
+  <include package=".serializers" />
+  <include package=".vocabularies" />
+
+  <!-- Appends contributed workflows to the chain of participating content.
+       More specific than Plone's default adapter, which is registered for
+       Interface, so non-participating content is unaffected. -->
+  <adapter
+      factory=".chain.additional_workflows_chain"
+      trusted="y"
+      />
+
+
+  <!-- -*- extra stuff goes here -*- -->
+
+</configure>

@@ -1,0 +1,27 @@
+name: Documentation
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: true
+        type: string
+      working-directory:
+        required: false
+        type: string
+        default: docs
+    outputs:
+      artifacts-name:
+        description: "Name of the uploaded docs artifact, propagated from the build job"
+        value: ${{ jobs.build.outputs.artifacts-name }}
+
+jobs:
+
+  build:
+    name: "Docs: Build"
+    uses: ./.github/workflows/tmp-docs-build.yml
+    with:
+      python-version: ${{ inputs.python-version }}
+      working-directory: ${{ inputs.working-directory }}
+      check-vale: true
+      artifacts-store: true

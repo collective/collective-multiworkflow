@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dc-workflow description="Tracks a membership lifecycle independently of publication."
+             initial_state="pending"
+             manager_bypass="False"
+             state_variable="workflow_states"
+             title="Membership"
+             workflow_id="foundation_member_workflow"
+>
+
+  <!-- This workflow manages one permission, and it is deliberately one the
+      publication workflow does not manage. Workflows sharing a chain each
+      rewrite only the permissions they declare here, so disjoint sets compose;
+      a permission claimed by two workflows is left as whichever transitioned
+      last wrote it. See api.conflicting_permissions to audit a chain. -->
+  <permission>collective.multiworkflow: Manage membership</permission>
+
+  <state state_id="pending"
+         title="Pending"
+  >
+    <description>Membership requested, not yet approved.</description>
+    <exit-transition transition_id="activate" />
+    <permission-map acquired="False"
+                    name="collective.multiworkflow: Manage membership"
+    >
+      <permission-role>Manager</permission-role>
+      <permission-role>Site Administrator</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+  </state>
+
+  <state state_id="active"
+         title="Active"
+  >
+    <description>Membership is current.</description>
+    <exit-transition transition_id="lapse" />
+    <permission-map acquired="False"
+                    name="collective.multiworkflow: Manage membership"
+    >
+      <permission-role>Manager</permission-role>
+      <permission-role>Site Administrator</permission-role>
+      <permission-role>Owner</permission-role>
+    </permission-map>
+  </state>
+
+  <state state_id="lapsed"
+         title="Lapsed"
+  >
+    <description>Membership expired and may be renewed.</description>
+    <exit-transition transition_id="activate" />
+    <permission-map acquired="False"
+                    name="collective.multiworkflow: Manage membership"
+    >
+      <permission-role>Manager</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+  </state>
+
+  <transition after_script=""
+              before_script=""
+              new_state="active"
+              title="Activate membership"
+              transition_id="activate"
+              trigger="USER"
+  >
+    <description>Approve or renew the membership.</description>
+    <action category="workflow"
+            icon=""
+            url="%(content_url)s/content_status_modify?workflow_action=activate"
+    >Activate</action>
+    <guard>
+      <guard-permission>Modify portal content</guard-permission>
+    </guard>
+  </transition>
+
+  <transition after_script=""
+              before_script=""
+              new_state="lapsed"
+              title="Lapse membership"
+              transition_id="lapse"
+              trigger="USER"
+  >
+    <description>Mark the membership as expired.</description>
+    <action category="workflow"
+            icon=""
+            url="%(content_url)s/content_status_modify?workflow_action=lapse"
+    >Lapse</action>
+    <guard>
+      <guard-permission>Modify portal content</guard-permission>
+    </guard>
+  </transition>
+
+  <!-- The same five variables every stock Plone workflow declares. Without
+      them the workflow records no history at all, and the @history endpoint
+      would have nothing of its own to report. The chain's first workflow still
+      answers an untargeted review_history read, so publication history is
+      never shadowed by these. -->
+  <variable for_catalog="False"
+            for_status="True"
+            update_always="True"
+            variable_id="action"
+  >
+    <description>Previous transition</description>
+    <default>
+      <expression>transition/getId|nothing</expression>
+    </default>
+    <guard>
+</guard>
+  </variable>
+
+  <variable for_catalog="False"
+            for_status="True"
+            update_always="True"
+            variable_id="actor"
+  >
+    <description>The ID of the user who performed the previous transition</description>
+    <default>
+      <expression>user/getId</expression>
+    </default>
+    <guard>
+</guard>
+  </variable>
+
+  <variable for_catalog="False"
+            for_status="True"
+            update_always="True"
+            variable_id="comments"
+  >
+    <description>Comment about the last transition</description>
+    <default>
+      <expression>python:state_change.kwargs.get('comment', '')</expression>
+    </default>
+    <guard>
+</guard>
+  </variable>
+
+  <variable for_catalog="False"
+            for_status="False"
+            update_always="False"
+            variable_id="review_history"
+  >
+    <description>Provides access to workflow history</description>
+    <default>
+      <expression>state_change/getHistory</expression>
+    </default>
+    <guard>
+      <guard-permission>Request review</guard-permission>
+      <guard-permission>Review portal content</guard-permission>
+    </guard>
+  </variable>
+
+  <variable for_catalog="False"
+            for_status="True"
+            update_always="True"
+            variable_id="time"
+  >
+    <description>When the previous transition was performed</description>
+    <default>
+      <expression>state_change/getDateTime</expression>
+    </default>
+    <guard>
+</guard>
+  </variable>
+
+</dc-workflow>

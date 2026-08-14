@@ -1,0 +1,104 @@
+{
+  "@id": "/profiles",
+  "@type": "Document",
+  "UID": "66cd5475f86a49f8ba8fb4a13ac00290",
+  "allow_discussion": null,
+  "blocks": {
+    "0dba6ef5-b0a5-45e5-b9a4-7edb4e4d2007": {
+      "@type": "slate"
+    },
+    "6f2524d1-74a9-474d-8867-a62dd200076d": {
+      "@type": "description"
+    },
+    "86aefb81-d429-4b20-b19e-4b16d6e369af": {
+      "@type": "listing",
+      "headline": "Community members",
+      "headlineTag": "h2",
+      "querystring": {
+        "b_size": "10",
+        "query": [
+          {
+            "i": "portal_type",
+            "o": "plone.app.querystring.operation.selection.any",
+            "v": [
+              "Profile"
+            ]
+          }
+        ],
+        "sort_on": "sortable_title",
+        "sort_order": "ascending"
+      },
+      "variation": "summary"
+    },
+    "abb82c25-c8ef-4d01-83df-94d52cdfe464": {
+      "@type": "title"
+    }
+  },
+  "blocks_layout": {
+    "items": [
+      "abb82c25-c8ef-4d01-83df-94d52cdfe464",
+      "6f2524d1-74a9-474d-8867-a62dd200076d",
+      "86aefb81-d429-4b20-b19e-4b16d6e369af",
+      "0dba6ef5-b0a5-45e5-b9a4-7edb4e4d2007"
+    ]
+  },
+  "changeNote": "",
+  "contributors": [],
+  "created": "2026-08-12T17:19:17+00:00",
+  "creators": [
+    "admin"
+  ],
+  "description": "Profiles of our community members",
+  "effective": "2026-08-12T17:23:00+00:00",
+  "exclude_from_nav": false,
+  "expires": null,
+  "exportimport.constrains": {},
+  "exportimport.conversation": [],
+  "id": "profiles",
+  "is_folderish": true,
+  "language": "##DEFAULT##",
+  "layout": "document_view",
+  "lock": {
+    "locked": false,
+    "stealable": true
+  },
+  "modified": "2026-08-12T17:23:41+00:00",
+  "nav_title": null,
+  "preview_caption_link": null,
+  "review_state": "published",
+  "rights": "",
+  "subjects": [],
+  "title": "Profiles",
+  "type_title": "Page",
+  "version": "current",
+  "versioning_enabled": true,
+  "workflow_history": {
+    "foundation_member_workflow": [
+      {
+        "action": null,
+        "actor": "admin",
+        "comments": "",
+        "time": "2026-08-12T17:19:17+00:00",
+        "workflow_states": "pending"
+      }
+    ],
+    "simple_publication_workflow": [
+      {
+        "action": null,
+        "actor": "admin",
+        "comments": "",
+        "review_state": "private",
+        "time": "2026-08-12T17:19:17+00:00"
+      },
+      {
+        "action": "publish",
+        "actor": "admin",
+        "comments": "",
+        "review_state": "published",
+        "time": "2026-08-12T17:23:41+00:00"
+      }
+    ]
+  },
+  "working_copy": null,
+  "working_copy_of": null
+}

@@ -1,0 +1,70 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+    {
+        "action": "activate",
+        "actor": {
+            "@id": "http://localhost:55001/plone/@users/admin",
+            "fullname": "admin",
+            "id": "admin",
+            "username": null
+        },
+        "comments": "",
+        "state_title": "Active",
+        "time": "1995-07-31T17:30:00+00:00",
+        "transition_title": "Activate",
+        "type": "workflow",
+        "workflow_id": "foundation_member_workflow",
+        "workflow_states": "active"
+    },
+    {
+        "@id": "http://localhost:55001/plone/member-profile/@history/0",
+        "action": "Edited",
+        "actor": {
+            "@id": "http://localhost:55001/plone/@users/admin",
+            "fullname": "admin",
+            "id": "admin",
+            "username": null
+        },
+        "comments": "Initial version",
+        "may_revert": true,
+        "time": "1995-07-31T18:30:00+00:00",
+        "transition_title": "Edited",
+        "type": "versioning",
+        "version": 0,
+        "workflow_id": null
+    },
+    {
+        "action": "Create",
+        "actor": {
+            "@id": "http://localhost:55001/plone/@users/admin",
+            "fullname": "admin",
+            "id": "admin",
+            "username": null
+        },
+        "comments": "",
+        "state_title": "Pending",
+        "time": "1995-07-31T19:30:00+00:00",
+        "transition_title": "Create",
+        "type": "workflow",
+        "workflow_id": "foundation_member_workflow",
+        "workflow_states": "pending"
+    },
+    {
+        "action": "Create",
+        "actor": {
+            "@id": "http://localhost:55001/plone/@users/admin",
+            "fullname": "admin",
+            "id": "admin",
+            "username": null
+        },
+        "comments": "",
+        "review_state": "private",
+        "state_title": "Private",
+        "time": "1995-07-31T20:30:00+00:00",
+        "transition_title": "Create",
+        "type": "workflow",
+        "workflow_id": "simple_publication_workflow"
+    }
+]

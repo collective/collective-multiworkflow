@@ -1,0 +1,80 @@
+{
+  "@id": "/profiles/ortegas",
+  "@type": "Profile",
+  "UID": "6cf95023eb8b424bac0f849b794d270d",
+  "allow_discussion": null,
+  "changeNote": "",
+  "contributors": [],
+  "created": "2026-08-12T17:23:06+00:00",
+  "creators": [
+    "admin"
+  ],
+  "description": "Born in the city of Barranquilla, Colombia, on Earth, on May 23rd, 2233",
+  "email": "ortegas@starfleet.space",
+  "exportimport.constrains": {},
+  "exportimport.conversation": [],
+  "id": "ortegas",
+  "image": {
+    "blob_path": "6cf95023eb8b424bac0f849b794d270d/image/ortegas.png",
+    "content-type": "image/png",
+    "filename": "ortegas.png",
+    "height": 400,
+    "size": 152536,
+    "width": 400
+  },
+  "image_caption": null,
+  "is_folderish": true,
+  "language": "##DEFAULT##",
+  "layout": "view",
+  "lock": {},
+  "modified": "2026-08-13T20:24:30+00:00",
+  "review_state": "published",
+  "rights": "",
+  "title": "Erica Ortegas",
+  "type_title": "Profile",
+  "version": "current",
+  "versioning_enabled": true,
+  "workflow_history": {
+    "foundation_member_workflow": [
+      {
+        "action": "activate",
+        "actor": "admin",
+        "comments": "",
+        "time": "2026-08-13T20:24:30+00:00",
+        "workflow_states": "active"
+      },
+      {
+        "action": "lapse",
+        "actor": "admin",
+        "comments": "",
+        "time": "2026-08-13T20:24:39+00:00",
+        "workflow_states": "lapsed"
+      },
+      {
+        "action": "activate",
+        "actor": "admin",
+        "comments": "",
+        "time": "2026-08-13T20:26:35+00:00",
+        "workflow_states": "active"
+      }
+    ],
+    "simple_publication_workflow": [
+      {
+        "action": null,
+        "actor": "admin",
+        "comments": "",
+        "review_state": "private",
+        "time": "2026-08-12T17:23:06+00:00"
+      },
+      {
+        "action": "publish",
+        "actor": "admin",
+        "comments": "",
+        "review_state": "published",
+        "time": "2026-08-12T17:23:41+00:00"
+      }
+    ]
+  },
+  "working_copy": null,
+  "working_copy_of": null
+}

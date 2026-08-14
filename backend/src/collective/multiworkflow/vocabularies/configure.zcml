@@ -1,0 +1,11 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+
+  <utility
+      name="collective.multiworkflow.vocabularies.WorkflowStates"
+      component=".workflow.workflow_states"
+      />
+
+  <!-- -*- extra stuff goes here -*- -->
+
+</configure>
