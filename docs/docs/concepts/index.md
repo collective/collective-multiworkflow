@@ -26,24 +26,53 @@ the-workflow-states-index
 scope
 ```
 
-{doc}`workflow-chains`
-:   What a chain is, why chains were impractical before, and what this package changes.
-    Start here.
+`````{grid} 1 1 2 2
+:gutter: 3
 
-{doc}`behavior-driven-assignment`
-:   Why workflows are assigned through behaviors, and how the chain adapter applies to participating content alone.
+````{grid-item-card} Workflow chains
+:link: workflow-chains
+:link-type: doc
 
-{doc}`state-variables`
-:   Why `review_state` belongs to the publication workflow, and why additional workflows share one other name.
+What a chain is, why chains were impractical before, and what this package changes.
++++
+Start here.
+````
 
-{doc}`permissions`
-:   The one constraint concurrent workflows must satisfy, and why an overlap is reported rather than resolved.
+````{grid-item-card} Behavior-driven assignment
+:link: behavior-driven-assignment
+:link-type: doc
 
-{doc}`the-workflow-states-index`
-:   Why one catalog index describes a whole chain, and why existing `review_state` queries are rewritten onto it.
+Why workflows are assigned through behaviors, and how the chain adapter applies to participating content alone.
+````
 
-{doc}`scope`
-:   What the package deliberately does not do.
+````{grid-item-card} State variables
+:link: state-variables
+:link-type: doc
+
+Why `review_state` belongs to the publication workflow, and why additional workflows share one other name.
+````
+
+````{grid-item-card} Permissions
+:link: permissions
+:link-type: doc
+
+The one constraint concurrent workflows must satisfy, and why an overlap is reported rather than resolved.
+````
+
+````{grid-item-card} The workflow_states index
+:link: the-workflow-states-index
+:link-type: doc
+
+Why one catalog index describes a whole chain, and why existing `review_state` queries are rewritten onto it.
+````
+
+````{grid-item-card} Scope
+:link: scope
+:link-type: doc
+
+What the package deliberately does not do.
+````
+`````
 
 ```{seealso}
 The Diátaxis framework calls this class of documentation [explanation](https://diataxis.fr/explanation/).
