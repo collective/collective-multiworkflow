@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-08-12 17:01+0000\n"
+"POT-Creation-Date: 2026-08-14 18:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,49 +16,49 @@ msgstr ""
 
 #: collective/multiworkflow/profiles.zcml:13
 msgid "Assign additional workflows to content types through behaviors, with full support in plone.restapi and Volto."
-msgstr ""
+msgstr "Atribua fluxos de trabalho adicionais aos tipos de conteúdo por meio de comportamentos, com suporte total no plone.restapi e Volto."
 
 #: collective/multiworkflow/restapi/history.py:153
 msgid "Create"
-msgstr ""
+msgstr "Criado"
 
-#: collective/multiworkflow/profiles.zcml:22
-msgid "Create example content to showcase this addon."
-msgstr ""
+#: collective/multiworkflow/demo/configure.zcml:56
+msgid "Create example content showcasing the membership workflow."
+msgstr "Crie conteúdo de exemplo mostrando o fluxo de trabalho de associação."
 
 #: collective/multiworkflow/demo/configure.zcml:15
 msgid "Foundation member"
-msgstr ""
+msgstr "Membro da Fundação"
 
-#: collective/multiworkflow/demo/configure.zcml:41
+#: collective/multiworkflow/demo/configure.zcml:43
 msgid "Install an example behavior that adds a membership workflow to Documents."
-msgstr ""
+msgstr "Instala um comportamento de exemplo que adiciona um fluxo de trabalho de associação a Documentos."
 
-#: collective/multiworkflow/demo/configure.zcml:41
+#: collective/multiworkflow/demo/configure.zcml:43
 msgid "Multi-Workflow Support for Plone: Example behavior"
-msgstr ""
+msgstr "Suporte a Multi-Workflow para Plone: Comportamento de exemplo"
 
-#: collective/multiworkflow/profiles.zcml:22
+#: collective/multiworkflow/demo/configure.zcml:56
 msgid "Multi-Workflow Support for Plone: Example content"
-msgstr ""
+msgstr "Suporte a Multi-Workflow para Plone: Conteúdo de exemplo"
 
 #: collective/multiworkflow/profiles.zcml:13
 msgid "Multi-Workflow Support for Plone: Install"
-msgstr ""
+msgstr "Suporte a Multi-Workflow para Plone"
 
-#: collective/multiworkflow/profiles.zcml:30
+#: collective/multiworkflow/profiles.zcml:21
 msgid "Multi-Workflow Support for Plone: Uninstall"
-msgstr ""
+msgstr "Suporte a Multi-Workflow para Plone: Desinstalar"
 
 #: collective/multiworkflow/demo/configure.zcml:15
 msgid "Track a membership lifecycle alongside the publication workflow."
-msgstr ""
+msgstr "Acompanhe o ciclo de vida de uma associação junto com o fluxo de trabalho de publicação."
 
-#: collective/multiworkflow/profiles.zcml:30
+#: collective/multiworkflow/profiles.zcml:21
 msgid "Uninstall Multi-Workflow Support for Plone setup."
-msgstr ""
+msgstr "Desinstalar a configuração de Suporte a Multi-Workflow para Plone."
 
 #. Default: "Anonymous User"
 #: collective/multiworkflow/restapi/history.py:136
 msgid "label_anonymous_user"
-msgstr ""
+msgstr "Usuário Anônimo"

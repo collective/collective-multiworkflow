@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-08-12 17:01+0000\n"
+"POT-Creation-Date: 2026-08-14 18:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,23 +22,23 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: collective/multiworkflow/profiles.zcml:22
-msgid "Create example content to showcase this addon."
+#: collective/multiworkflow/demo/configure.zcml:56
+msgid "Create example content showcasing the membership workflow."
 msgstr ""
 
 #: collective/multiworkflow/demo/configure.zcml:15
 msgid "Foundation member"
 msgstr ""
 
-#: collective/multiworkflow/demo/configure.zcml:41
+#: collective/multiworkflow/demo/configure.zcml:43
 msgid "Install an example behavior that adds a membership workflow to Documents."
 msgstr ""
 
-#: collective/multiworkflow/demo/configure.zcml:41
+#: collective/multiworkflow/demo/configure.zcml:43
 msgid "Multi-Workflow Support for Plone: Example behavior"
 msgstr ""
 
-#: collective/multiworkflow/profiles.zcml:22
+#: collective/multiworkflow/demo/configure.zcml:56
 msgid "Multi-Workflow Support for Plone: Example content"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Multi-Workflow Support for Plone: Install"
 msgstr ""
 
-#: collective/multiworkflow/profiles.zcml:30
+#: collective/multiworkflow/profiles.zcml:21
 msgid "Multi-Workflow Support for Plone: Uninstall"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Track a membership lifecycle alongside the publication workflow."
 msgstr ""
 
-#: collective/multiworkflow/profiles.zcml:30
+#: collective/multiworkflow/profiles.zcml:21
 msgid "Uninstall Multi-Workflow Support for Plone setup."
 msgstr ""
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2024-03-22T12:43:34.158Z\n"
+"POT-Creation-Date: 2026-08-14T18:46:19.388Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -12,3 +12,83 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8\n"
 "Domain: volto\n"
+
+#. Default: "Back"
+#: components/History/History
+msgid "Back"
+msgstr ""
+
+#. Default: "Change Note"
+#: components/History/HistoryTable
+msgid "Change Note"
+msgstr ""
+
+#. Default: "History"
+#: components/History/History
+msgid "History"
+msgstr ""
+
+#. Default: "#"
+#: components/History/HistoryTable
+msgid "History Version Number"
+msgstr ""
+
+#. Default: "History of {title}"
+#: components/History/History
+msgid "History of {title}"
+msgstr ""
+
+#. Default: "No workflow"
+#: components/Workflow/Workflow
+msgid "No workflow"
+msgstr ""
+
+#. Default: "Revert to this revision"
+#: components/History/HistoryRow
+msgid "Revert to this revision"
+msgstr ""
+
+#. Default: "State"
+#: components/Workflow/Workflow
+msgid "State"
+msgstr ""
+
+#. Default: "View changes"
+#: components/History/HistoryRow
+msgid "View changes"
+msgstr ""
+
+#. Default: "View this revision"
+#: components/History/HistoryRow
+msgid "View this revision"
+msgstr ""
+
+#. Default: "What"
+#: components/History/HistoryTable
+msgid "What"
+msgstr ""
+
+#. Default: "When"
+#: components/History/HistoryTable
+msgid "When"
+msgstr ""
+
+#. Default: "Who"
+#: components/History/HistoryTable
+msgid "Who"
+msgstr ""
+
+#. Default: "Workflow"
+#: components/History/HistoryTable
+msgid "Workflow"
+msgstr ""
+
+#. Default: "Workflow updated."
+#: components/Workflow/Workflow
+msgid "Workflow updated."
+msgstr ""
+
+#. Default: "You can view the history of your item below."
+#: components/History/History
+msgid "You can view the history of your item below."
+msgstr ""
