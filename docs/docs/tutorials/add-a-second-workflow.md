@@ -18,7 +18,7 @@ By the end you will have written a workflow definition, a behavior marker, and a
 
 ## What you need
 
-- A Plone 6 site with `collective.multiworkflow` installed, as described in {doc}`/how-to-guides/install`.
+- A Plone 6.2 site with `collective.multiworkflow` installed, as described in {doc}`/how-to-guides/install`.
 - An add-on package of your own where we can put the new files.
   We will call it `my.package`.
 - A way to run Python against the site: a debug shell, `plone.api` from a browser view, or a test.

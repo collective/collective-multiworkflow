@@ -21,7 +21,7 @@ Assign additional workflows to content types through behaviors, with full suppor
 
 ## Features
 
-The frontend package for Multi-Workflow Support for Plone — a Plone 6 add-on that assigns additional workflows to content types through behaviors, and carries them through the catalog, the REST API, and Volto. See also the backend package [collective.multiworkflow](https://pypi.org/project/collective.multiworkflow/).
+The frontend package for Multi-Workflow Support for Plone — a Plone 6.2 add-on that assigns additional workflows to content types through behaviors, and carries them through the catalog, the REST API, and Volto. See also the backend package [collective.multiworkflow](https://pypi.org/project/collective.multiworkflow/).
 
 This package surfaces the additional workflows a content object participates in, alongside Plone's regular publication workflow. It requires the backend package to be installed on the Plone site.
 

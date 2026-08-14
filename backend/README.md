@@ -18,7 +18,7 @@
 
 </div>
 
-The backend package for Multi-Workflow Support for Plone — a Plone 6 add-on that assigns additional workflows to content types through behaviors, and carries them through the catalog, the REST API, and Volto.
+The backend package for Multi-Workflow Support for Plone — a Plone 6.2 add-on that assigns additional workflows to content types through behaviors, and carries them through the catalog, the REST API, and Volto.
 See also the frontend package [@plone-collective/volto-multiworkflow](https://www.npmjs.com/package/@plone-collective/volto-multiworkflow).
 
 ## Features
