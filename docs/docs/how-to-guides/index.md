@@ -27,6 +27,8 @@ write-a-composing-workflow
 read-and-transition-state
 search-by-workflow-state
 audit-permission-conflicts
+consume-the-rest-api
+customize-the-volto-components
 add-to-an-existing-site
 ```
 
@@ -59,6 +61,14 @@ add-to-an-existing-site
 
 {doc}`audit-permission-conflicts`
 :   Find permissions claimed by more than one workflow, and resolve the overlap.
+
+## Building an interface
+
+{doc}`consume-the-rest-api`
+:   Read the chain, execute a transition, and read the merged history from a REST client.
+
+{doc}`customize-the-volto-components`
+:   Restyle the controls, read the chain in a component of your own, and shadow what the add-on ships.
 
 ```{seealso}
 The Diátaxis framework calls this class of documentation [how-to guides](https://diataxis.fr/how-to-guides/).
