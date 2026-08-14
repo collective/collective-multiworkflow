@@ -15,7 +15,7 @@
 
 
 [![npm](https://img.shields.io/npm/v/@plone-collective/volto-multiworkflow)](https://www.npmjs.com/package/@plone-collective/volto-multiworkflow)
-[![](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://collective.github.io/collective-multiworkflow/storybook/)
+[![Storybook](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://collective.github.io/collective-multiworkflow/storybook/)
 
 
 [![GitHub contributors](https://img.shields.io/github/contributors/collective/collective-multiworkflow)](https://github.com/collective/collective-multiworkflow)

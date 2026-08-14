@@ -12,6 +12,7 @@ bugfix
 buildout
 cacheable
 CommonJS
+Cookieplone
 doctest
 folderish
 fieldset
@@ -33,9 +34,11 @@ programatically
 [Qq]uerystring
 Razzle
 [Rr]enderer
+[Rr]epo
 RichText
 Sass
 Schuko
+Storybook
 subfolder
 [Tt]owncrier
 transpile[dr]{0,1}
