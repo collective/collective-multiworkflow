@@ -132,10 +132,23 @@ jobs:
               - '.github/workflows/backend*'
             devops:
               - 'devops/**'
+            # A strict superset of `deploy-docs`, and deliberately so: the
+            # deploy job downloads the artifact this build produces, from the
+            # same run. Any path that triggers the deploy but not the build
+            # leaves it with nothing to download and it fails there rather
+            # than being skipped. `backend/**` is here for a second reason —
+            # the Python API pages are autodoc over its docstrings and the
+            # REST examples are generated from its tests, so a backend change
+            # can break the docs build on its own.
             docs:
               - 'docs/**'
               - '.github/workflows/docs.yml'
-              - '.github/workflows/tmp-docs-build.yml'
+              - '.github/workflows/tmp-docs-*'
+              - 'backend/**'
+              - '.github/workflows/backend*'
+              - 'frontend/**'
+              - '.github/workflows/frontend*'
+              - '.github/workflows/tmp-frontend-*'
             # Wider than `docs` on purpose: the published site is documentation
             # *and* Storybook, deployed as one artifact. A frontend-only change
             # still has to rebuild both, or the two halves drift apart.
