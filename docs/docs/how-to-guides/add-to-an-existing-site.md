@@ -48,15 +48,26 @@ assert catalog.Indexes["workflow_states"].numObjects() > 0
 Every object now carries at least one value: its publication workflow's state.
 Objects gain further values as behaviors contribute workflows to them.
 
-## 2. Reindex content imported before this version
+## 2. Repair content imported before this version
 
 Skip this unless the site was populated with `plone.exportimport`, or with a tool built on it such as a `plone.distribution` site creation.
 
-Importing content restores workflow state by writing it directly rather than by transitioning, which used to leave the chain index holding the state each object was created in.
-This package now patches the importer, so content imported from here on is indexed correctly and needs nothing.
+Importing content restores workflow state by writing it directly rather than by transitioning.
+That used to leave the chain index holding the state each object was created in, and the object's permissions set as that initial state defines them.
+This package now patches the importer, so content imported from here on is indexed and secured correctly and needs nothing.
 
-Content imported *before* you installed this package does need the reindex in step 1, which you have already run.
-If you are unsure whether an import predates the patch, the reindex is safe to run again.
+Content imported *before* you installed this version needs two repairs.
+The reindex in step 1, which you have already run, repairs the index.
+Recomputing role mappings repairs the permissions.
+
+```python
+wftool = api.portal.get_tool("portal_workflow")
+wftool.updateRoleMappings()
+```
+
+`updateRoleMappings` walks the whole site, applies each workflow's permission map for the state every object is in, and reindexes the security of the objects whose mappings changed.
+It is what the **Update security settings** button of `portal_workflow` does in the Zope Management Interface.
+If you are unsure whether an import predates the patch, both repairs are safe to run again.
 
 To check a single object rather than trust the answer, compare what it says with what the catalog says.
 

@@ -17,7 +17,7 @@ def create_example_content(portal_setup: SetupTool):
     importer = importers.get_importer(portal)
     for line in importer.import_site(EXAMPLE_CONTENT_FOLDER):
         logger.info(line)
-    # No reindex here: importing an object's workflow history leaves the
-    # additional workflow's catalog entry stale, and that is fixed for every
-    # importer at once in collective.multiworkflow.exportimport rather than
-    # once per setup handler.
+    # No reindex or role mapping update here: importing an object's workflow
+    # history leaves the additional workflow's catalog entry and permissions
+    # stale, and that is fixed for every importer at once in
+    # collective.multiworkflow.exportimport rather than once per setup handler.
