@@ -191,6 +191,18 @@ A project shadow of `Workflow` replaces the add-on's, not just Volto's.
 Additional workflows disappear from the interface with no error, because a component that never reads `chain` renders exactly as it did before the add-on was installed.
 ```
 
+## Combine with another add-on shadowing the same component
+
+Two add-ons can shadow the same Volto component, and only one shadow applies.
+Customizations in an add-on listed later in `addons` override those in an add-on listed earlier, the same rule Volto applies to add-on configuration.
+
+If another add-on in your project also shadows `Workflow` or `History`, the one listed last in `addons` wins, and the other's rendering is lost entirely.
+Choose the one to keep, and port the other's changes into a shadow in your project, built on this add-on's exports as described above.
+
+```{seealso}
+The rule is implemented by `getAddonCustomizationPaths` in `@plone/registry`, whose [source](https://github.com/plone/volto/blob/main/packages/registry/src/addon-registry/addon-registry.ts) documents it.
+```
+
 ## Keep a shadow current across a Volto upgrade
 
 Both files the add-on shadows are kept deliberately close to upstream, with their changes confined to blocks marked `--- collective.multiworkflow ---`.
