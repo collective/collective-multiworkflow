@@ -25,8 +25,9 @@ Satisfy them and your workflow composes with any other that satisfies them too.
 ```xml
 <dc-workflow
     workflow_id="membership_workflow"
-    state_variable="workflow_states"
     title="Membership"
+    state_variable="workflow_states"
+    initial_state="pending"
     >
 ```
 
@@ -44,10 +45,19 @@ Transition ids must be unique across every workflow in the chains your workflow 
 
 ```xml
 <transition transition_id="membership_activate"
-            new_state="active"
             title="Activate membership"
+            new_state="active"
             trigger="USER"
-            />
+            before_script=""
+            after_script=""
+            >
+  <action category="workflow"
+          url="%(content_url)s/content_status_modify?workflow_action=membership_activate"
+          >Activate membership</action>
+  <guard>
+    <guard-permission>Modify portal content</guard-permission>
+  </guard>
+</transition>
 ```
 
 `doActionFor` resolves an ambiguous id to the first workflow in the chain that defines it.

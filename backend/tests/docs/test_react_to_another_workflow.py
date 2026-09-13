@@ -18,6 +18,7 @@ site the way they would in a real package: the XML through DCWorkflow's own
 definition parser, the ZCML through ``xmlconfig``.
 """
 
+from . import load_definition
 from . import subscribers
 from collections.abc import Iterator
 from collective.multiworkflow import api as mw_api
@@ -27,8 +28,6 @@ from importlib.resources import files
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.dexterity.content import Container
-from Products.DCWorkflow import exportimport as dcworkflow_import
-from Products.DCWorkflow.exportimport import WorkflowDefinitionConfigurator
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
 from tests import MEMBER_PROFILE
 from tests import PUBLICATION_WORKFLOW
@@ -116,9 +115,6 @@ DEFINITION = (
 def import_definition(workflow: Any, transition_xml: str) -> None:
     """Import the demo definition into a workflow, with one transition replaced.
 
-    Parses and applies the definition exactly as the GenericSetup import step
-    does, so a guard that works here works from a profile.
-
     :param workflow: the workflow to import the definition into.
     :param transition_xml: the ``<transition>`` element replacing the one with
         the same ``transition_id``.
@@ -133,42 +129,8 @@ def import_definition(workflow: Any, transition_xml: str) -> None:
         re.DOTALL,
     )
     assert existing is not None
-    xml = xml[: existing.start()] + transition_xml + xml[existing.end() :]
-
-    (
-        _workflow_id,
-        title,
-        state_variable,
-        initial_state,
-        states,
-        transitions,
-        variables,
-        worklists,
-        permissions,
-        groups,
-        scripts,
-        description,
-        manager_bypass,
-        creation_guard,
-    ) = WorkflowDefinitionConfigurator(workflow).parseWorkflowXML(xml.encode("utf-8"))
-    # attr-defined: plone-stubs declares the module's public names only, and
-    # this private helper is the one the GenericSetup import step calls.
-    dcworkflow_import._initDCWorkflow(  # type: ignore[attr-defined]
-        workflow,
-        title,
-        description,
-        manager_bypass,
-        creation_guard,
-        state_variable,
-        initial_state,
-        states,
-        transitions,
-        variables,
-        worklists,
-        permissions,
-        groups,
-        scripts,
-        None,
+    load_definition(
+        workflow, xml[: existing.start()] + transition_xml + xml[existing.end() :]
     )
 
 

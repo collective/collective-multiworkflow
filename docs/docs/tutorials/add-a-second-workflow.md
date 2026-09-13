@@ -81,18 +81,38 @@ In your package, create `profiles/default/workflows/membership_workflow/definiti
               title="Activate membership"
               new_state="active"
               trigger="USER"
-              action="Activate membership"
-              />
+              before_script=""
+              after_script=""
+              >
+    <action category="workflow"
+            url="%(content_url)s/content_status_modify?workflow_action=membership_activate"
+            >Activate membership</action>
+    <guard>
+      <guard-permission>Modify portal content</guard-permission>
+    </guard>
+  </transition>
 
   <transition transition_id="membership_lapse"
               title="Lapse membership"
               new_state="lapsed"
               trigger="USER"
-              action="Lapse membership"
-              />
+              before_script=""
+              after_script=""
+              >
+    <action category="workflow"
+            url="%(content_url)s/content_status_modify?workflow_action=membership_lapse"
+            >Lapse membership</action>
+    <guard>
+      <guard-permission>Modify portal content</guard-permission>
+    </guard>
+  </transition>
 
 </dc-workflow>
 ```
+
+Most of the file is ordinary DCWorkflow.
+A transition needs `before_script` and `after_script` even when they are empty, or the definition does not import.
+Its `<action>` element is what lists it among the transitions a user can choose, and its guard lets only users who can edit the content execute it.
 
 Two details in there are the whole point of this file.
 

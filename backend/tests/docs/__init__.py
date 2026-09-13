@@ -18,9 +18,15 @@ Two properties make the output diffable rather than noisy:
   which the ``docs_examples`` fixture enters for the whole test. Without it,
   every ``@history`` entry would carry the wall clock and every run would
   rewrite the file.
+
+The pages that show a workflow definition are tested differently: their XML is
+held verbatim by the test module and imported with :func:`load_definition`,
+exactly as the GenericSetup import step would import it.
 """
 
 from pathlib import Path
+from Products.DCWorkflow import exportimport as dcworkflow_import
+from Products.DCWorkflow.exportimport import WorkflowDefinitionConfigurator
 from typing import Any
 
 import json
@@ -45,6 +51,55 @@ CANONICAL_NETLOC = "localhost:55001"
 #: Written with explicit newlines so a run on macOS and a run on Linux produce
 #: byte-identical files.
 OPEN_KWARGS: dict[str, Any] = {"newline": "\n"}
+
+
+def load_definition(workflow: Any, xml: str) -> None:
+    """Import a ``definition.xml`` into a workflow, as GenericSetup does.
+
+    The workflow import step parses the file with
+    ``WorkflowDefinitionConfigurator.parseWorkflowXML`` and applies the result
+    with ``_initDCWorkflow``; this does the same, so a definition that loads
+    here loads from a profile, and one missing a required attribute fails here
+    with the error a profile import would raise.
+
+    :param workflow: the ``DCWorkflowDefinition`` to import into.
+    :param xml: the full text of the definition.
+    """
+    (
+        _workflow_id,
+        title,
+        state_variable,
+        initial_state,
+        states,
+        transitions,
+        variables,
+        worklists,
+        permissions,
+        groups,
+        scripts,
+        description,
+        manager_bypass,
+        creation_guard,
+    ) = WorkflowDefinitionConfigurator(workflow).parseWorkflowXML(xml.encode("utf-8"))
+    # attr-defined: plone-stubs declares the module's public names only, and
+    # this private helper is the one the GenericSetup import step calls.
+    dcworkflow_import._initDCWorkflow(  # type: ignore[attr-defined]
+        workflow,
+        title,
+        description,
+        manager_bypass,
+        creation_guard,
+        state_variable,
+        initial_state,
+        states,
+        transitions,
+        variables,
+        worklists,
+        permissions,
+        groups,
+        scripts,
+        None,
+    )
 
 
 def normalize(value: str) -> str:
