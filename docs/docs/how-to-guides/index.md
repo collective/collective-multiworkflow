@@ -30,6 +30,7 @@ audit-permission-conflicts
 consume-the-rest-api
 customize-the-volto-components
 add-to-an-existing-site
+upgrade
 ```
 
 ## Getting set up
@@ -56,6 +57,13 @@ Load the worked example and see an additional workflow running end to end.
 :link-type: doc
 
 Populate the new catalog index on a site that already holds content.
+````
+
+````{grid-item-card} Upgrade to a newer release
+:link: upgrade
+:link-type: doc
+
+Check and change what each new release affects, from one release to the next.
 ````
 `````
 
