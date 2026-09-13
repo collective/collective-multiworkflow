@@ -4,4 +4,10 @@
   <include package="plone.restapi" />
   <include package="plone.volto" />
 
+  <!-- Required by the @history endpoint (Issue #7)-->
+  <include
+      package="Products.CMFEditions"
+      file="permissions.zcml"
+      />
+
 </configure>

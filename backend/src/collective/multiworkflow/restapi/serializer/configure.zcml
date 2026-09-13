@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- Including this file imports the subpackage, and importing it patches
+       plone.restapi's content serializer to add workflow_states. See
+       dxcontent.py for why the patch is applied to the class in place. -->
+
+  <utility
+      factory=".summary.JSONSummarySerializerMetadata"
+      name="collective.multiworkflow.summary_serializer_metadata"
+      />
+
+  <!-- More specific than plone.restapi's own registration, which is for
+       Interface, so vanilla content keeps the stock payload. -->
+  <adapter
+      factory=".workflow.WorkflowChainInfo"
+      name="workflow"
+      />
+
+</configure>

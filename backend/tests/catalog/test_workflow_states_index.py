@@ -15,9 +15,9 @@ set. Those two tests read metadata, and say so.
 
 from . import AUDIT_WORKFLOW
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
-from collective.multiworkflow.indexers import format_state
-from collective.multiworkflow.indexers import parse_state
-from collective.multiworkflow.indexers import WORKFLOW_STATES
+from collective.multiworkflow.utils.workflow import format_state
+from collective.multiworkflow.utils.workflow import parse_state
+from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 from plone import api
 from plone.dexterity.content import Container
 from tests import flush_indexing
@@ -172,7 +172,7 @@ class TestBespokeStateVariableStaysFresh(Searchable):
     """A workflow keeping its own state variable relies on the subscriber.
 
     Nothing in CMFCore reindexes ``workflow_states`` for such a chain, so
-    without :func:`~collective.multiworkflow.indexers.reindex_workflow_states`
+    without :func:`~collective.multiworkflow.subscribers.reindex.reindex_workflow_states`
     the index freezes at the values it held when the workflow was contributed —
     while the brain keeps reporting the truth. These are the assertions that
     catch that, and removing the subscriber turns every one of them red.

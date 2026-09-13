@@ -4,7 +4,7 @@ Demonstrates the mechanism end to end. A type with this behavior enabled keeps
 its normal publication workflow and gains ``foundation_member_workflow``, which
 tracks a membership lifecycle without ever touching ``review_state``.
 
-Its ``state_variable`` is :data:`~collective.multiworkflow.indexers.
+Its ``state_variable`` is :data:`~collective.multiworkflow.utils.workflow.
 WORKFLOW_STATES` rather than a name of its own, which is what makes CMFCore
 reindex the catalog on every transition. A real deployment should do the same.
 

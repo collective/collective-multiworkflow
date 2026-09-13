@@ -22,7 +22,7 @@ This guide shows you how to find content by its state in any workflow of its cha
 Query `workflow_states`, building the value with `format_state`.
 
 ```python
-from collective.multiworkflow.indexers import format_state
+from collective.multiworkflow.utils.workflow import format_state
 from plone import api
 
 active = api.content.find(
@@ -60,7 +60,7 @@ results = api.content.find(
 Use `parse_state` rather than splitting the string yourself.
 
 ```python
-from collective.multiworkflow.indexers import parse_state
+from collective.multiworkflow.utils.workflow import parse_state
 
 for brain in active:
     for value in brain.workflow_states:
@@ -69,6 +69,19 @@ for brain in active:
 
 The metadata column is available on brains, so this needs no object wake-up.
 Values are in chain order, and the first is always the workflow driving `review_state`.
+
+## Read the states from a search request
+
+Summaries of catalog results carry `workflow_states`, so a search returns every item's states with no further request.
+
+```http
+GET /plone/@search?portal_type=Profile HTTP/1.1
+Accept: application/json
+```
+
+Each item of the response holds a `workflow_states` list, in the same format and order as the index.
+The serialization of a single object carries the same key.
+See {ref}`reference-rest-api-content`.
 
 ## Add a criterion to a collection
 
@@ -79,8 +92,9 @@ Its vocabulary lists every state of every registered workflow, titled `<workflow
 
 A criterion written before the add-on was installed keeps working.
 
-Parsed `review_state` queries are redirected onto `workflow_states`, and a bare state id such as `published` is qualified with the first workflow of the site's default chain.
-The operator of an *all of* criterion and the negation of an *excludes* criterion are preserved.
+A parsed `review_state` query whose values name no workflow, such as `published`, is left on the stock `review_state` index and answers exactly as before.
+Only a query carrying a qualified value is moved onto `workflow_states`, with the operator of an *all of* criterion and the negation of an *excludes* criterion preserved.
+A criterion saved from the collection editor carries qualified values, so it is moved from then on.
 
 You do not need to rewrite stored collections.
 

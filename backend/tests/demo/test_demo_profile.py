@@ -10,8 +10,8 @@ from collective.multiworkflow import api as mwapi
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
 from collective.multiworkflow.demo.behavior import IFoundationMember
 from collective.multiworkflow.demo.behavior import MEMBERSHIP_PERMISSION
-from collective.multiworkflow.indexers import format_state
-from collective.multiworkflow.indexers import WORKFLOW_STATES
+from collective.multiworkflow.utils.workflow import format_state
+from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 from plone import api
 from plone.dexterity.content import Container
 from Products.CMFPlone.Portal import PloneSite

@@ -5,6 +5,7 @@
 import AdditionalWorkflowMenu from './AdditionalWorkflowMenu';
 import type { AdditionalWorkflowMenuProps } from './AdditionalWorkflowMenu';
 import {
+  labelledMembership,
   multiWorkflowChain,
   publication,
   membership,
@@ -45,6 +46,16 @@ export const TwoWorkflows: Story<AdditionalWorkflowMenuProps> = {
 /** A single additional workflow. */
 export const OneWorkflow: Story<AdditionalWorkflowMenuProps> = {
   args: { chain: [publication, membership] },
+};
+
+/**
+ * A workflow whose `<plone:additionalworkflows />` directive declares a label.
+ *
+ * The backend reports the label, translated, as the entry's `title`, so the
+ * menu shows it in place of the workflow's own title with no change of its own.
+ */
+export const DeclaredLabel: Story<AdditionalWorkflowMenuProps> = {
+  args: { chain: [publication, labelledMembership] },
 };
 
 /**

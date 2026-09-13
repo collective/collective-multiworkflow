@@ -221,7 +221,7 @@ Every workflow in the chain is indexed.
 Build the value with `format_state` and query for it.
 
 ```python
-from collective.multiworkflow.indexers import format_state
+from collective.multiworkflow.utils.workflow import format_state
 
 results = api.content.find(
     workflow_states=format_state("membership_workflow", "active")

@@ -2,15 +2,17 @@
 
 A behavior declares the workflows it contributes by registering a subscription
 adapter on its own marker interface. This module provides the helper used to
-write such a factory, and the lookup that collects every contribution an object
-makes.
+write such a factory, the lookup that collects every contribution an object
+makes, and the lookup of the label a workflow is shown under.
 """
 
+from .interfaces import IAdditionalWorkflowLabel
 from .interfaces import IAdditionalWorkflowsFor
 from collections.abc import Callable
 from typing import Any
 from typing import cast
 from zope.component import adapter
+from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
 from zope.interface import Interface
@@ -68,3 +70,22 @@ def collect_contributions(context: Any) -> tuple[str, ...]:
             if workflow_id not in collected:
                 collected.append(workflow_id)
     return tuple(collected)
+
+
+def workflow_label(workflow: Any) -> str:
+    """Name a workflow the way the user interface should show it.
+
+    A ``label`` declared on ``<plone:additionalworkflows />`` wins; otherwise the
+    workflow's own title is used. A declared label is a message id in the i18n
+    domain of the ZCML file declaring it, so translate the result before
+    showing it.
+
+    :param workflow: the workflow definition to name.
+    :returns: the declared label, or the workflow's title when none is declared.
+    """
+    label = queryUtility(IAdditionalWorkflowLabel, name=workflow.getId())
+    if label:
+        # Utilities are typed by the interface they provide; a label is the
+        # message id itself.
+        return cast(str, label)
+    return workflow.title

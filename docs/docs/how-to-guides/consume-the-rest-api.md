@@ -171,8 +171,8 @@ const membership = history.filter(
 
 ## Label an entry with its workflow
 
-History entries carry a `workflow_id` but not the workflow's title.
-Read the titles from the chain and map them.
+History entries carry a `workflow_id` but not the name to show for the workflow.
+Read the titles from the chain, which already carry any label declared for a workflow, and map them.
 
 ```js
 const titles = Object.fromEntries(

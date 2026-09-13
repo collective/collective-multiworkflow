@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.multiworkflow"
+    >
+
+  <!-- Core's listing only ever reports the first workflow in the chain that
+       records history. This one reports them all, tagged with workflow_id. -->
+  <plone:service
+      method="GET"
+      factory=".get.ChainHistoryGet"
+      for="collective.multiworkflow.interfaces.IAdditionalWorkflows"
+      permission="CMFEditions.AccessPreviousVersions"
+      name="@history"
+      />
+
+</configure>

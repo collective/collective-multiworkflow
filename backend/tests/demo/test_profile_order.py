@@ -20,7 +20,7 @@ narrower thing to assert — the claim is about the FTI, not about GenericSetup.
 from . import FOUNDATION_MEMBER_BEHAVIOR
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
 from collective.multiworkflow.demo.behavior import IFoundationMember
-from collective.multiworkflow.indexers import WORKFLOW_STATES
+from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 from plone import api
 from plone.dexterity.content import Container
 from Products.CMFPlone.WorkflowTool import WorkflowTool

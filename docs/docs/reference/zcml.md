@@ -40,18 +40,50 @@ A test layer with autoinclude switched off must load it explicitly.
 :   **Required.** Whitespace-separated ids of the workflows this marker contributes, in order.
     They are appended after the workflows the content type is already configured with, never in place of them.
 
+`label`
+:   Optional. The name the user interface shows for the workflow, in place of its title.
+    It is translatable: the text is a message id in the `i18n_domain` of the ZCML file declaring it.
+    Only valid when `workflows` names exactly one workflow.
+
+```xml
+<configure
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="my.package"
+    >
+
+  <plone:additionalworkflows
+      marker=".interfaces.IFoundationMember"
+      workflows="foundation_member_workflow"
+      label="Foundation membership"
+      />
+
+</configure>
+```
+
 ### What it registers
 
 One subscription adapter on `marker`, providing `IAdditionalWorkflowsFor` and returning the given ids.
 
 A subscription adapter, rather than a plain one, is what makes an object providing several participating markers collect the contributions of all of them.
 
+With `label`, the directive also registers one utility providing `IAdditionalWorkflowLabel`, named after the workflow id, whose component is the label.
+The label belongs to the workflow rather than to the marker, so it names the workflow wherever it appears.
+The `@workflow` endpoint reports it, translated, as the chain entry's `title`, and the vocabulary of the **Review state** collection criterion names the workflow's states with it.
+A workflow with no declared label keeps its own title in both places.
+
 ### Errors
 
-The directive raises `ConfigurationError` while the configuration is being read if `marker` does not extend `IAdditionalWorkflows`.
+The directive raises `ConfigurationError` while the configuration is being read in the following cases.
 
-Such a marker would leave the chain adapter inapplicable, and the contribution would be ignored at runtime with nothing to show for it.
-Failing at configuration time instead is the point of the check.
+- `marker` does not extend `IAdditionalWorkflows`.
+  Such a marker would leave the chain adapter inapplicable, and the contribution would be ignored at runtime with nothing to show for it.
+  Failing at configuration time instead is the point of the check.
+- `label` is given while `workflows` names more or fewer than one workflow.
+  Nothing would say which workflow the label names.
+  Declare each labelled workflow in a directive of its own.
+
+Two directives labelling the same workflow raise `ConfigurationConflictError`, as any two utilities registered under one name do.
+Declare a workflow's label once, even when several markers contribute that workflow.
 
 ### Equivalent Python registration
 
@@ -68,7 +100,21 @@ getGlobalSiteManager().registerSubscriptionAdapter(
 )
 ```
 
-The directive is the same registration in one line, and it validates the marker.
+To label the workflow as well, register the label as a utility named after the workflow id.
+
+```python
+from collective.multiworkflow.interfaces import IAdditionalWorkflowLabel
+from zope.i18nmessageid import MessageFactory
+
+_ = MessageFactory("my.package")
+getGlobalSiteManager().registerUtility(
+    _("Foundation membership"),
+    IAdditionalWorkflowLabel,
+    name="foundation_member_workflow",
+)
+```
+
+The directive is the same registration in one line, and it validates the marker and the label.
 Prefer it.
 
 ```{seealso}

@@ -4,32 +4,7 @@
     i18n_domain="collective.multiworkflow"
     >
 
-  <!-- More specific than plone.restapi's own registration, which is for
-       Interface, so vanilla content keeps the stock payload. -->
-  <adapter
-      factory=".serializer.WorkflowChainInfo"
-      name="workflow"
-      />
-
-  <!-- The adapter alone is not enough: plone.restapi's service instantiates
-       WorkflowInfo directly rather than looking the adapter up, so the GET
-       registration has to be overridden for participating content too. -->
-  <plone:service
-      method="GET"
-      factory=".service.WorkflowChainInfoService"
-      for="collective.multiworkflow.interfaces.IAdditionalWorkflows"
-      permission="zope2.View"
-      name="@workflow"
-      />
-
-  <!-- Core's listing only ever reports the first workflow in the chain that
-       records history. This one reports them all, tagged with workflow_id. -->
-  <plone:service
-      method="GET"
-      factory=".history.ChainHistoryGet"
-      for="collective.multiworkflow.interfaces.IAdditionalWorkflows"
-      permission="CMFEditions.AccessPreviousVersions"
-      name="@history"
-      />
+  <include package=".serializer" />
+  <include package=".services" />
 
 </configure>

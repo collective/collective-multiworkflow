@@ -54,12 +54,17 @@ Only the additional workflow is stale, and only in the catalog: the object itsel
 
 A site installing this add-on already has collections, saved searches, and code querying `review_state` with values like `published`.
 
-Those values no longer match anything, because the states now live in a differently named index under qualified values.
-Left alone, such a query returns nothing—and an empty result reads as *no content is in that state*, not as *this query can no longer work*.
+Those queries still have an index to answer them.
+The stock `review_state` index is maintained exactly as before, by whichever workflow drives each object's `review_state`, so a bare `published` finds what it always found.
+What it cannot do is name an additional workflow: the collection editor offers every state of every workflow as a qualified value, and only `workflow_states` holds those.
+
+So a parsed `review_state` query is moved onto `workflow_states` only when one of its values names a workflow, and is left where it is otherwise.
+
+Moving every query and qualifying a bare state id with the site's default workflow would look equivalent, but it answers correctly only for content types driven by that workflow.
+A type configured with another one would drop out of the results, and an empty result reads as *no content is in that state*, not as *this query can no longer work*.
 That is the worst available failure: silent, plausible, and indistinguishable from a true answer.
 
-So a parsed `review_state` query is redirected onto `workflow_states`, and a bare state id is qualified with the site's default workflow.
-The rewriting is deliberately conservative: it renames the index, qualifies only string values, and passes every other key of the parsed query through untouched, because those keys carry the operator of an *all of* criterion and the negation of an *excludes* one.
+When a query does move, the rewriting is deliberately conservative: it renames the index, qualifies a bare state id only when the query mixes it with qualified ones, and passes every other key of the parsed query through untouched, because those keys carry the operator of an *all of* criterion and the negation of an *excludes* one.
 
 The result is that an existing query keeps meaning what its author meant, and a new one can name any workflow it likes.
 

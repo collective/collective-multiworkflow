@@ -4,7 +4,15 @@
 
 import StateBadge from './StateBadge';
 import type { StateBadgeProps } from './StateBadge';
-import { membership, publication, review } from '../../stories/fixtures';
+import { getAdditionalWorkflowStates } from '../../helpers/states';
+import {
+  contentWithWorkflowStates,
+  labelledMembership,
+  membership,
+  publication,
+  review,
+  workflowStateTitles,
+} from '../../stories/fixtures';
 import type { Story, StoryMeta } from '../../stories/csf';
 
 const meta: StoryMeta<StateBadgeProps> = {
@@ -14,7 +22,8 @@ const meta: StoryMeta<StateBadgeProps> = {
     docs: {
       description: {
         component:
-          'A compact label for one chain entry. Titles arrive translated from ' +
+          'A compact label for one workflow state, rendered from a chain entry ' +
+          'or from a `workflow_states` value. Titles arrive translated from ' +
           'the backend, so the component does no i18n of its own. Style it ' +
           'through the `data-workflow` and `data-state` attributes, which ' +
           'carry stable ids rather than translated text.',
@@ -40,6 +49,16 @@ export const LongStateTitle: Story<StateBadgeProps> = {
   args: { entry: review },
 };
 
+/**
+ * A workflow whose directive declares a label.
+ *
+ * The backend reports the label as the entry's `title`, so the badge names the
+ * workflow by it with no change of its own. Hover to see it.
+ */
+export const DeclaredLabel: Story<StateBadgeProps> = {
+  args: { entry: labelledMembership },
+};
+
 /** Extra class names are appended, so a theme can restyle the badge. */
 export const CustomClassName: Story<StateBadgeProps> = {
   args: { entry: membership, className: 'my-theme-badge' },
@@ -52,6 +71,39 @@ export const InAListing: Story<StateBadgeProps> = {
       <StateBadge entry={publication} />
       <StateBadge entry={membership} />
       <StateBadge entry={review} />
+    </div>
+  ),
+};
+
+/**
+ * From a `workflow_states` value, labelled from the workflow states vocabulary.
+ *
+ * Content and catalog summaries carry these values, so a listing renders them
+ * with no `@workflow` request per item.
+ */
+export const FromValue: Story<StateBadgeProps> = {
+  args: {
+    value: 'foundation_member_workflow|active',
+    label: 'Membership: Active',
+  },
+};
+
+/** A value with no label: the badge falls back to the state id. */
+export const FromValueWithoutLabel: Story<StateBadgeProps> = {
+  args: { value: 'foundation_member_workflow|active' },
+};
+
+/** A listing item's additional states, read from its `workflow_states`. */
+export const InAListingFromValues: Story<StateBadgeProps> = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem' }}>
+      {getAdditionalWorkflowStates(contentWithWorkflowStates).map((value) => (
+        <StateBadge
+          key={value}
+          value={value}
+          label={workflowStateTitles[value]}
+        />
+      ))}
     </div>
   ),
 };

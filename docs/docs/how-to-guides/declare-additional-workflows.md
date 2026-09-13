@@ -66,6 +66,19 @@ With none, `plone.behavior` applies the interface to content as a marker, which 
 To contribute several workflows, separate their ids with whitespace.
 They are appended in the order given, after the workflows the content type is already configured with.
 
+To show the workflow under a name other than its title, give it a `label`.
+
+```xml
+<plone:additionalworkflows
+    marker=".interfaces.IFoundationMember"
+    workflows="foundation_member_workflow"
+    label="Foundation membership"
+    />
+```
+
+The label is translated in the `i18n_domain` of your ZCML file, so add it to your package's message catalogs like any other string.
+A directive with a `label` must name exactly one workflow; declare each labelled workflow in a directive of its own.
+
 See {doc}`/reference/zcml` for the directive's full description.
 
 ## 4. Enable the behavior on a type

@@ -70,7 +70,7 @@ Titles are translated by the backend serializer before they reach the browser, s
 
 ## Show a state badge in your own component
 
-`StateBadge` renders one chain entry and takes no store connection, so you can drop it anywhere you already hold a chain entry.
+`StateBadge` takes no store connection, so you can drop it anywhere you already hold a chain entry.
 
 ```tsx
 import { StateBadge, getAdditionalWorkflows } from '@plone-collective/volto-multiworkflow';
@@ -85,6 +85,29 @@ function MembershipColumn({ chain }) {
   );
 }
 ```
+
+In a listing, render the badges from the `workflow_states` key each item already carries, rather than requesting `@workflow` for every item.
+
+```tsx
+import {
+  StateBadge,
+  getAdditionalWorkflowStates,
+} from '@plone-collective/volto-multiworkflow';
+
+function ListingStates({ item, titles }) {
+  return (
+    <>
+      {getAdditionalWorkflowStates(item).map((value) => (
+        <StateBadge key={value} value={value} label={titles[value]} />
+      ))}
+    </>
+  );
+}
+```
+
+A `workflow_states` value holds ids only.
+Take its `label` from the vocabulary named by `WORKFLOW_STATES_VOCABULARY`, whose titles name the workflow by any label declared for it.
+Without a `label`, the badge shows the state id.
 
 ## Read the chain in your own component
 

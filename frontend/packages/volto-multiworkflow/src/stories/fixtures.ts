@@ -6,7 +6,12 @@
  * add-on's own example content: a publication workflow plus a membership one.
  */
 
-import type { HistoryEntry, WorkflowChainEntry } from '../types';
+import type {
+  HistoryEntry,
+  WithWorkflowStates,
+  WorkflowChainEntry,
+  WorkflowStateValue,
+} from '../types';
 
 /** The workflow every Plone object already has. */
 export const publication: WorkflowChainEntry = {
@@ -50,6 +55,39 @@ export const review: WorkflowChainEntry = {
   state: { id: 'awaiting_review', title: 'Awaiting review' },
   transitions: [],
   history: [],
+};
+
+/**
+ * The membership workflow, where its directive declares a `label`.
+ *
+ * The backend reports a declared label, translated, as the entry's `title`, so
+ * this is `membership` with the label in place of the workflow's own title.
+ */
+export const labelledMembership: WorkflowChainEntry = {
+  ...membership,
+  title: 'Foundation membership',
+};
+
+/**
+ * What content and catalog summaries carry for the chain below.
+ *
+ * The same states as `multiWorkflowChain`, as ids only and in chain order.
+ */
+export const contentWithWorkflowStates: WithWorkflowStates = {
+  workflow_states: [
+    'simple_publication_workflow|published',
+    'foundation_member_workflow|active',
+    'editorial_review_workflow|awaiting_review',
+  ],
+};
+
+/** Titles for those values, as the workflow states vocabulary names them. */
+export const workflowStateTitles: Record<WorkflowStateValue, string> = {
+  'simple_publication_workflow|published':
+    'Simple Publication Workflow: Published',
+  'foundation_member_workflow|active': 'Membership: Active',
+  'editorial_review_workflow|awaiting_review':
+    'Editorial review: Awaiting review',
 };
 
 /** What a site without this add-on serves: one workflow, no `chain` key. */
