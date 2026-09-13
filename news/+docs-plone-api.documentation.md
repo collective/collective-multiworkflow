@@ -1,0 +1,1 @@
+Documented what the workflow helpers of `plone.api.content` do on content with an additional workflow, and made the transition ids in the guide to writing a composing workflow follow the guide's own prefixing advice. @ericof

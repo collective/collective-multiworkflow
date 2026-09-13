@@ -21,6 +21,9 @@ You can therefore import it in place of `plone.api.content` and change nothing e
 
 - Content participating in at least one additional workflow.
 
+The examples use the demo package's `foundation_member_workflow`, whose transition ids are `activate` and `lapse`.
+Those bare ids predate the advice, in {doc}`write-a-composing-workflow`, to prefix transition ids with something specific to their workflow.
+
 ## Read one workflow's state
 
 Pass `workflow_id` to address a specific workflow in the chain.
@@ -115,6 +118,24 @@ owners = mw_api.owning_workflow(obj)
 
 The result maps every transition id in the chain to the workflow that owns it.
 An id defined by more than one workflow is attributed to the first in chain order, which is how `doActionFor` resolves the same collision.
+
+## Use `plone.api` on the same content
+
+`plone.api.content` keeps working on content with additional workflows, but it never names a workflow.
+The table shows what each of its workflow helpers does on such content, and the call to use instead.
+
+| `plone.api.content` call | What it does | Call instead |
+|---|---|---|
+| `get_state(obj)` | Returns `review_state`, the publication workflow's state. | `mw_api.get_state(obj)`, which returns the same. |
+| `get_state(obj, workflow_id=...)` | Raises `TypeError`: `plone.api` has no `workflow_id` parameter. | `mw_api.get_state(obj, workflow_id=...)` |
+| `transition(obj=obj, transition=...)` | Executes the transition in the first workflow of the chain that supports the id. | `mw_api.transition(obj, ..., workflow_id=...)`, to name the workflow. |
+| `transition(obj=obj, to_state=...)` | Reaches a publication state; for a state of an additional workflow, raises `InvalidParameterError` and changes nothing. | `mw_api.transition` with the transition that leads to the state. |
+
+```{warning}
+When two workflows of a chain define the same transition id, `plone.api.content.transition` executes the one in the workflow that comes first in the chain.
+The other workflow's transition is then reachable only through `mw_api.transition` with `workflow_id`.
+{doc}`write-a-composing-workflow` explains how to avoid the collision in the first place.
+```
 
 ```{seealso}
 {doc}`/reference/api/api` for the complete signatures.

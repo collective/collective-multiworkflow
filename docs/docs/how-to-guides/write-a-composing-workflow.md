@@ -24,7 +24,7 @@ Satisfy them and your workflow composes with any other that satisfies them too.
 
 ```xml
 <dc-workflow
-    workflow_id="foundation_member_workflow"
+    workflow_id="membership_workflow"
     state_variable="workflow_states"
     title="Membership"
     >
@@ -43,7 +43,7 @@ A bespoke name still works—an event handler covers it—but it costs a full me
 Transition ids must be unique across every workflow in the chains your workflow will join.
 
 ```xml
-<transition transition_id="activate"
+<transition transition_id="membership_activate"
             new_state="active"
             title="Activate membership"
             trigger="USER"
@@ -86,7 +86,7 @@ Then check the transition ids resolve to the workflows you expect.
 ```python
 owners = mw_api.owning_workflow(obj)
 
-assert owners["activate"] == "foundation_member_workflow"
+assert owners["membership_activate"] == "membership_workflow"
 ```
 
 A transition id attributed to a workflow you did not expect is a shadowing collision.
