@@ -7,6 +7,7 @@ existing clients keep seeing publication transitions only.
 """
 
 from collective.multiworkflow.api import owning_workflow
+from collective.multiworkflow.declaration import workflow_label
 from collective.multiworkflow.interfaces import IAdditionalWorkflows
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.serializer.converters import json_compatible
@@ -53,6 +54,10 @@ class WorkflowChainInfo(WorkflowInfo):
     def _serialize_chain(self) -> list[dict]:
         """Describe each workflow applying to this object.
 
+        An entry's ``title`` is the label declared for the workflow when there
+        is one, since ``title`` is what clients show; see
+        :func:`~collective.multiworkflow.declaration.workflow_label`.
+
         :returns: one entry per workflow, in chain order.
         """
         wftool = getToolByName(self.context, "portal_workflow")
@@ -62,7 +67,7 @@ class WorkflowChainInfo(WorkflowInfo):
         return [
             {
                 "workflow_id": workflow.getId(),
-                "title": self.context.translate(workflow.title),
+                "title": self.context.translate(workflow_label(workflow)),
                 "state_variable": workflow.state_var,
                 "state": self._state(wftool, workflow),
                 "transitions": transitions.get(workflow.getId(), []),

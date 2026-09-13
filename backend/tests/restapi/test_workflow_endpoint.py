@@ -6,12 +6,18 @@ importantly — that content without additional workflows is served exactly the
 payload core produces.
 """
 
+from collections.abc import Iterator
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
+from collective.multiworkflow.interfaces import IAdditionalWorkflowLabel
 from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 from tests import MEMBER_PROFILE
 from tests import PLAIN_DOCUMENT
 from tests import PUBLICATION_WORKFLOW
 from typing import Any
+from zope.component import getGlobalSiteManager
+from zope.i18n.interfaces import ITranslationDomain
+from zope.i18n.simpletranslationdomain import SimpleTranslationDomain
+from zope.i18nmessageid import MessageFactory
 
 import pytest
 
@@ -20,6 +26,49 @@ pytestmark = pytest.mark.portal(
     content=[MEMBER_PROFILE, PLAIN_DOCUMENT],
     roles=["Manager"],
 )
+
+
+#: A translation domain of the tests' own, so a label's translation is observable.
+LABEL_DOMAIN = "collective.multiworkflow.tests"
+
+LABEL = "Foundation membership"
+
+#: What ``LABEL_DOMAIN`` translates ``LABEL`` to in English.
+TRANSLATED_LABEL = "Membership of the foundation"
+
+
+@pytest.fixture()
+def declared_label() -> Iterator[str]:
+    """Label the demo's membership workflow, as the directive's ``label`` does.
+
+    The label is a message id in a domain registered here, which translates it
+    for English. A payload carrying the translation therefore proves the label
+    was translated rather than passed on as it came.
+    """
+    gsm = getGlobalSiteManager()
+    label = MessageFactory(LABEL_DOMAIN)(LABEL)
+    domain = SimpleTranslationDomain(LABEL_DOMAIN, {("en", LABEL): TRANSLATED_LABEL})
+    gsm.registerUtility(label, IAdditionalWorkflowLabel, FOUNDATION_MEMBER_WORKFLOW)
+    gsm.registerUtility(domain, ITranslationDomain, LABEL_DOMAIN)
+
+    yield label
+
+    gsm.unregisterUtility(label, IAdditionalWorkflowLabel, FOUNDATION_MEMBER_WORKFLOW)
+    gsm.unregisterUtility(domain, ITranslationDomain, LABEL_DOMAIN)
+
+
+class TestDeclaredLabel:
+    @pytest.fixture(autouse=True)
+    def _setup(self, declared_label: str, member_payload: dict) -> None:
+        self.chain = member_payload["chain"]
+
+    def test_the_label_arrives_as_the_title_translated(self) -> None:
+        """Clients show ``title``, so that is where the declared label goes."""
+        assert self.chain[1]["title"] == TRANSLATED_LABEL
+
+    def test_an_unlabelled_workflow_keeps_its_title(self) -> None:
+        """The label names the membership workflow only."""
+        assert self.chain[0]["title"] == "Simple Publication Workflow"
 
 
 class TestChainKey:

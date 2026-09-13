@@ -94,7 +94,8 @@ A site that declares no default chain has nothing to attribute a bare id to, and
 ## Vocabulary
 
 `collective.multiworkflow.vocabularies.WorkflowStates` provides one term per state of every registered workflow.
-Terms are keyed exactly as the index holds them, and titled `<workflow title>: <state title>`.
+Terms are keyed exactly as the index holds them, and titled `<workflow>: <state title>`.
+The workflow is named by the `label` declared for it, translated, or by its own title when none is declared.
 
 The `default` profile makes it the value source of the existing **Review state** query field, replacing the vocabulary of plain `review_state` values.
 The collection editor therefore offers every state of every workflow under the criterion editors already know, and the values it stores are qualified ones that `ReviewStateModifier` moves onto `workflow_states` untouched.

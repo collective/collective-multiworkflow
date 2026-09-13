@@ -1,5 +1,9 @@
+from collections.abc import Iterator
+from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
+from collective.multiworkflow.interfaces import IAdditionalWorkflowLabel
 from plone.app.vocabularies import SimpleTerm
 from plone.app.vocabularies import SimpleVocabulary
+from zope.component import getGlobalSiteManager
 
 import pytest
 
@@ -43,3 +47,31 @@ class TestVocab:
         assert isinstance(term, SimpleTerm)
         assert term.title == title
         assert term.token == token
+
+
+class TestVocabWithDeclaredLabel:
+    name: str = "collective.multiworkflow.vocabularies.WorkflowStates"
+
+    @pytest.fixture()
+    def declared_label(self) -> Iterator[str]:
+        """Label the demo's membership workflow, as the directive's ``label`` does."""
+        gsm = getGlobalSiteManager()
+        label = "Foundation membership"
+        gsm.registerUtility(label, IAdditionalWorkflowLabel, FOUNDATION_MEMBER_WORKFLOW)
+        yield label
+        gsm.unregisterUtility(
+            label, IAdditionalWorkflowLabel, FOUNDATION_MEMBER_WORKFLOW
+        )
+
+    @pytest.fixture(autouse=True)
+    def _setup(self, declared_label, portal_class, get_vocabulary):
+        self.vocab = get_vocabulary(self.name, portal_class)
+
+    def test_the_label_names_the_workflow(self):
+        """The collection editor shows the same name as the ``@workflow`` payload."""
+        term = self.vocab.getTermByToken("foundation_member_workflow|pending")
+        assert term.title == "Foundation membership: Pending"
+
+    def test_an_unlabelled_workflow_keeps_its_title(self):
+        term = self.vocab.getTermByToken("simple_publication_workflow|private")
+        assert term.title == "Simple Publication Workflow: Private"

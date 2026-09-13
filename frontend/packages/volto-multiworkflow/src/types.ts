@@ -26,7 +26,10 @@ export interface WorkflowTransition {
 export interface WorkflowChainEntry {
   /** Workflow id, e.g. `foundation_member_workflow`. */
   workflow_id: string;
-  /** The workflow's own title. */
+  /**
+   * Human-readable, translated name of the workflow: the `label` its
+   * registration declares, or the workflow's own title when none is declared.
+   */
   title: string;
   /** The variable this workflow drives; never `review_state` for secondaries. */
   state_variable: string;

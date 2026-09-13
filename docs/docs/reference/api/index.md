@@ -61,17 +61,19 @@ Most callers use {ref}`the ZCML directive <reference-zcml>` instead of these.
 
     declaration.contributes
     declaration.collect_contributions
+    declaration.workflow_label
 ```
 
 ## `collective.multiworkflow.interfaces`
 
-The two interfaces the mechanism is built on.
+The interfaces the mechanism is built on.
 
 ```{eval-rst}
 .. autosummary::
 
     interfaces.IAdditionalWorkflows
     interfaces.IAdditionalWorkflowsFor
+    interfaces.IAdditionalWorkflowLabel
 ```
 
 ## `collective.multiworkflow.chain`

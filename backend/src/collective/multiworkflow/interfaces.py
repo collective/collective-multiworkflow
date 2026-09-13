@@ -39,3 +39,23 @@ class IAdditionalWorkflowsFor(Interface):
     it provides this interface, mirroring how Plone declares
     ``ToolWorkflowChain`` as providing ``IWorkflowChain``.
     """
+
+
+class IAdditionalWorkflowLabel(Interface):
+    """The label a workflow is shown under, in place of its title.
+
+    Registered as a named utility: the name is the workflow id, and the
+    component is the label itself — a message id in the i18n domain of the ZCML
+    file declaring it. Declare it with the directive's ``label``::
+
+        <plone:additionalworkflows
+            marker=".interfaces.IFoundationMember"
+            workflows="foundation_member_workflow"
+            label="Foundation membership"
+            />
+
+    The label belongs to the workflow rather than to the marker, so it names the
+    workflow wherever it appears. Read it with
+    :func:`collective.multiworkflow.declaration.workflow_label`, which falls
+    back to the workflow's title.
+    """

@@ -52,7 +52,8 @@ Each entry holds the following keys.
 :   Id of the workflow, as `portal_workflow` registers it.
 
 `title`
-:   The workflow's own title, translated.
+:   The name to show for the workflow, translated: the `label` declared on its `<plone:additionalworkflows />` directive, or the workflow's own title when none is declared.
+    See {ref}`reference-zcml`.
 
 `state_variable`
 :   The variable this workflow drives.

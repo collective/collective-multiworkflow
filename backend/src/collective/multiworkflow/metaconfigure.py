@@ -12,12 +12,15 @@ the two to a namespace.
 """
 
 from .declaration import contributes
+from .interfaces import IAdditionalWorkflowLabel
 from .interfaces import IAdditionalWorkflows
 from .interfaces import IAdditionalWorkflowsFor
 from typing import Any
 from zope.component.zcml import subscriber
+from zope.component.zcml import utility
 from zope.configuration.exceptions import ConfigurationError
 from zope.configuration.fields import GlobalInterface
+from zope.configuration.fields import MessageID
 from zope.configuration.fields import Tokens
 from zope.interface import Interface
 from zope.schema import TextLine
@@ -47,21 +50,36 @@ class IAdditionalWorkflowsDirective(Interface):
         required=True,
     )
 
+    label = MessageID(
+        title="Label",
+        description=(
+            "Label the user interface shows for the workflow in place of its "
+            "title, translated in the i18n_domain of the ZCML file declaring "
+            "it. Only valid when workflows names exactly one workflow."
+        ),
+        required=False,
+    )
+
 
 def additionalWorkflowsDirective(
     _context: Any,
     marker: type[Interface],
     workflows: list[str],
+    label: str | None = None,
 ) -> None:
-    """Register a marker's workflow contribution.
+    """Register a marker's workflow contribution, and the workflow's label.
 
     :param _context: the ZCML configuration context.
     :param marker: the behavior marker interface contributing the workflows.
     :param workflows: ids of the contributed workflows, in order.
+    :param label: a message id naming the workflow in place of its title, or
+        ``None`` to keep the title.
     :raises ConfigurationError: if ``marker`` does not extend
         :class:`~collective.multiworkflow.interfaces.IAdditionalWorkflows`, in
         which case the chain adapter would never apply and the contribution
-        would be silently ignored at runtime.
+        would be silently ignored at runtime; or if ``label`` is given while
+        ``workflows`` does not name exactly one workflow, which would leave
+        unclear which workflow it names.
     """
     if not marker.extends(IAdditionalWorkflows):
         raise ConfigurationError(
@@ -71,9 +89,27 @@ def additionalWorkflowsDirective(
             "it. Make the marker extend IAdditionalWorkflows."
         )
 
+    if label is not None and len(workflows) != 1:
+        raise ConfigurationError(
+            f"label {label!r} names one workflow, but workflows lists "
+            f"{len(workflows)}: {' '.join(workflows)}. Declare each labelled "
+            "workflow in a directive of its own."
+        )
+
     subscriber(
         _context,
         for_=(marker,),
         provides=IAdditionalWorkflowsFor,
         factory=contributes(marker, *workflows),
     )
+
+    if label is not None:
+        # Keyed by workflow id rather than by marker: the label names the
+        # workflow wherever it appears, and two directives labelling the same
+        # workflow conflict while the configuration is read.
+        utility(
+            _context,
+            provides=IAdditionalWorkflowLabel,
+            component=label,
+            name=workflows[0],
+        )
