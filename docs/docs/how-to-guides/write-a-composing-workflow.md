@@ -60,8 +60,8 @@ Transition ids must be unique across every workflow in the chains your workflow 
 </transition>
 ```
 
-`doActionFor` resolves an ambiguous id to the first workflow in the chain that defines it.
-A transition named `publish` in your workflow is therefore unreachable behind the publication workflow's own `publish`, except by naming your workflow explicitly.
+`doActionFor` executes an ambiguous id in the first workflow, in chain order, that can execute it from its current state.
+A transition named `publish` in your workflow is therefore shadowed by the publication workflow's own `publish` whenever that one is available, and reached without naming your workflow only while it is not.
 
 Prefixing ids with something specific to your domain, such as `membership_activate` rather than `activate`, is the cheapest way to guarantee this in a site whose chains you do not control.
 

@@ -65,7 +65,9 @@ Each entry holds the following keys.
 
 `transitions`
 :   The transitions of this workflow available to the current user, each with an `@id` to `POST` to and a translated `title`.
-    A transition id defined by more than one workflow in the chain is attributed to the first workflow that defines it, which is how `doActionFor` resolves the same collision.
+    A transition id defined by more than one workflow in the chain is listed under the first workflow that defines it.
+    The workflow tool executes such an id in the first workflow that can execute it from its current state, so the entry a transition is listed under can differ from the workflow a `POST` to its `@id` moves.
+    Give transitions ids that no other workflow in the chain uses.
 
 `history`
 :   This workflow's own `review_history` entries.

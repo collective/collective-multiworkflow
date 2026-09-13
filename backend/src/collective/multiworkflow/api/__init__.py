@@ -199,8 +199,11 @@ def owning_workflow(obj: DexterityContent) -> dict[str, str]:
     """Map every transition id in the object's chain to its owning workflow.
 
     A transition id defined by more than one workflow is attributed to the
-    first one in chain order, which is exactly how ``doActionFor`` resolves the
-    collision.
+    first one in chain order that defines it. ``doActionFor`` resolves the same
+    collision by state rather than by definition: it executes the id in the
+    first workflow that can execute it from its current state. On a shared id
+    the two can therefore disagree, which is one more reason for transition ids
+    to be unique across a chain.
 
     :param obj: object whose chain is inspected.
     :returns: mapping of transition id to workflow id.

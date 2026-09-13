@@ -122,8 +122,10 @@ class WorkflowChainInfo(WorkflowInfo):
 
         Ownership comes from :func:`collective.multiworkflow.api.
         owning_workflow`, which attributes a transition id defined by more than
-        one workflow to the first in chain order — mirroring how
-        ``doActionFor`` routes it.
+        one workflow to the first in chain order that defines it. ``doActionFor``
+        executes such an id in the first workflow that can execute it from its
+        current state instead, so on a shared id the entry a transition is
+        grouped under can differ from the workflow it moves.
 
         :param wftool: the ``portal_workflow`` tool.
         :returns: mapping of workflow id to its serialized transitions.
