@@ -65,6 +65,7 @@ One catalog index describes every workflow's state; the `@workflow` endpoint gai
 
 The chain configured for a content type is never replaced.
 Contributed workflows are appended after it, so the first workflow of any chain is still the one the type was configured with, and still the one driving `review_state`.
+When several behaviors contribute, {ref}`reference-zcml-order` gives the order their workflows follow in.
 
 Content that provides no participating behavior is not touched at all.
 Its chain resolution, its catalog entries, and its REST API payloads are exactly what they were before the add-on was installed.

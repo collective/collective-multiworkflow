@@ -43,9 +43,25 @@ The type's configured chain always leads, which is what makes "the first workflo
 The workflows a marker contributes are registered as a **subscription** adapter, not a plain one.
 
 A plain adapter has exactly one winner per interface, so an object providing two participating behaviors would gain the workflows of only one of them.
-Subscribers all fire, and their results are concatenated in registration order and deduplicated, so an object providing several participating markers collects the contributions of all of them.
+Subscribers all fire, and their results are concatenated and deduplicated, so an object providing several participating markers collects the contributions of all of them.
 
 That matters as soon as behaviors compose, which is the normal case in a real site.
+
+The order of that concatenation is not the order in which the contributions were registered.
+It follows the order in which the object provides the markers, reversed, so the behavior listed last on a type contributes first.
+{ref}`reference-zcml-order` gives the rule and where it comes from.
+
+## What enabling a behavior does to existing content
+
+Dexterity computes the interfaces an object provides from its type's behaviors whenever they are read.
+Enabling a participating behavior on a type therefore makes every existing object of that type provide the marker at once, and join the extended chain with it.
+
+Such an object has no status record for the contributed workflow yet.
+DCWorkflow answers a read of its state with the workflow's initial state, so the object can be read and transitioned straight away.
+
+Two things that creating the object, or transitioning it, would have done have not happened, because nothing touches existing objects when a type changes.
+The catalog still holds the chain each object was indexed with, and the contributed workflow's permission map has never been applied to any of them.
+{doc}`/how-to-guides/declare-additional-workflows` gives the two steps that bring existing content up to date.
 
 ## Failing loudly, and failing quietly, in the right places
 

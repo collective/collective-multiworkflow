@@ -71,6 +71,34 @@ The label belongs to the workflow rather than to the marker, so it names the wor
 The `@workflow` endpoint reports it, translated, as the chain entry's `title`, and the vocabulary of the **Review state** collection criterion names the workflow's states with it.
 A workflow with no declared label keeps its own title in both places.
 
+(reference-zcml-order)=
+
+### Order of contributions
+
+Within one directive, the workflows are appended in the order `workflows` lists them.
+
+When several participating behaviors contribute to the same object, their workflows are appended in the reverse of the order the behaviors are listed in the content type's `behaviors`: the behavior listed last contributes first.
+The order in which the directives are read plays no part.
+
+```xml
+<property name="behaviors">
+  <element value="my.package.member" />
+  <element value="my.package.peer_reviewed" />
+</property>
+```
+
+With `my.package.member` contributing `membership_workflow` and `my.package.peer_reviewed` contributing `peer_review_workflow`, the chain of a `Document` reads as follows.
+
+```python
+('simple_publication_workflow', 'peer_review_workflow', 'membership_workflow')
+```
+
+A marker applied to an object with `alsoProvides` follows the same rule: markers given later contribute first.
+
+The order is a consequence of how contributions are collected, not a policy of this package.
+`plone.dexterity` provides an object's behavior markers in the order the type lists them, and `zope.component` returns the subscribers of an object's interfaces starting from the least specific one.
+The test suite asserts it, in `backend/tests/chain/test_contribution_order.py`.
+
 ### Errors
 
 The directive raises `ConfigurationError` while the configuration is being read in the following cases.
