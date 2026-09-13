@@ -39,12 +39,13 @@ An index is only as good as whatever keeps it current, and an object's state can
 Two of them are events: a transition, which Plone already reindexes for, and a transition on a workflow with a bespoke state variable, which this package's own subscriber covers.
 
 The third is import, and it is not an event at all.
-`plone.exportimport` restores an object's state by assigning `workflow_history` directly, which is the correct thing to do (a real transition would rewrite role mappings and invent history) and which fires nothing.
+`plone.exportimport` restores an object's state by assigning `workflow_history` directly, which is the correct thing to do (a real transition would invent history and run the transition's guards and scripts) and which fires nothing.
 So neither of the first two mechanisms runs, and the imported object keeps the catalog entry it was created with.
+It keeps the role mappings of that initial state too, since applying a state's permission map is also something only a transition does.
 
 There is no subscriber to register for that, because nothing is notified.
 The only place to act is inside the importer, which is why this package patches `plone.exportimport` rather than adding a third listener.
-The patch is deliberately generic: it reindexes whatever the object's workflow variables are named, so it is the change this package would like to see upstream, not a special case for one index.
+The patch is deliberately generic: it reapplies the permission map of each workflow's restored state and reindexes whatever the object's workflow variables are named, so it is the change this package would like to see upstream, not a special case for one index.
 
 What makes the bug worth this trouble is the shape of it.
 `review_state` is imported by a real transition, so the publication half of the index is always right, and imported content looks healthy under exactly the spot-check anyone would perform.

@@ -61,8 +61,8 @@ Version `1000`; depends on `collective.multiworkflow.demo:demo`.
 
 It runs a post-handler that imports example content.
 
-The handler reindexes nothing itself.
-Keeping imported content correctly indexed is handled for every importer at once, by the patch described in {doc}`api/exportimport`.
+The handler neither reindexes nor updates role mappings itself.
+Keeping imported content correctly indexed and secured is handled for every importer at once, by the patch described in {doc}`api/exportimport`.
 
 ```{warning}
 The importer behind this profile commits as it goes.

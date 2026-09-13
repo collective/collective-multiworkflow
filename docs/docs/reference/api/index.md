@@ -153,12 +153,13 @@ The patch is applied when the package's ZCML is loaded; nothing here is called d
 
 ## `collective.multiworkflow.exportimport`
 
-A patch to `plone.exportimport`, so that importing content leaves the chain index correct.
+A patch to `plone.exportimport`, so that imported content has the role mappings and chain index entries of the state it was imported in.
 Applied when the package's ZCML is loaded; nothing here is called directly.
 
 ```{eval-rst}
 .. autosummary::
 
+    exportimport.update_role_mappings
     exportimport.reindex_workflow_variables
     exportimport.apply_patches
 ```

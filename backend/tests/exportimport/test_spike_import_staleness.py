@@ -13,6 +13,9 @@ It reaches the unpatched function through ``__wrapped__`` rather than by
 unloading the ZCML, so nothing global is left mutated if it fails midway.
 """
 
+from . import MANAGE_MEMBERSHIP
+from . import PENDING_ROLES
+from . import roles_with
 from . import STALE_MEMBERSHIP_STATE
 from collective.multiworkflow import api as mw_api
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
@@ -76,3 +79,11 @@ class TestUnpatchedImportLeavesTheIndexStale:
         })
 
         assert EXAMPLE_PROFILE_ITEM in [brain.getId for brain in results]
+
+    def test_role_mappings_are_the_initial_states(self) -> None:
+        """Issue #6: the security is as stale as the index, and as silent.
+
+        The object is ``active``, but its permission map is still the one
+        ``pending`` defines, because no transition ever applied the new one.
+        """
+        assert roles_with(self.item, MANAGE_MEMBERSHIP) == PENDING_ROLES

@@ -1,8 +1,8 @@
 ---
 myst:
   html_meta:
-    "description": "The patch that keeps imported content correctly indexed."
-    "property=og:description": "The patch that keeps imported content correctly indexed."
+    "description": "The patch that keeps imported content correctly indexed and secured."
+    "property=og:description": "The patch that keeps imported content correctly indexed and secured."
     "property=og:title": "collective.multiworkflow.exportimport"
     "keywords": "Plone, collective.multiworkflow, API, exportimport, import, patch"
 ---

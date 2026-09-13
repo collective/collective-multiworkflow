@@ -1,16 +1,22 @@
-"""The patch is installed, and it keeps imported content correctly indexed."""
+"""The patch is installed, and imported content ends up indexed and secured."""
 
+from . import ACTIVE_ROLES
 from . import IMPORTED_STATES
+from . import MANAGE_MEMBERSHIP
+from . import PENDING_ROLES
+from . import roles_with
 from . import STALE_MEMBERSHIP_STATE
 from collective.multiworkflow import api as mw_api
 from collective.multiworkflow import exportimport
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
 from collective.multiworkflow.utils.workflow import format_state
 from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
+from DateTime import DateTime
 from plone import api
 from plone.app.testing import applyProfile
 from plone.exportimport.utils.content import import_helpers
 from tests import flush_indexing
+from tests import MEMBER_PROFILE
 from tests.demo import CONTENT_PROFILE
 from tests.demo import EXAMPLE_DOCUMENT
 from tests.demo import EXAMPLE_PROFILE_ITEM
@@ -106,3 +112,85 @@ class TestImportedContentIsIndexed:
         })
 
         assert EXAMPLE_PROFILE_ITEM not in [brain.getId for brain in results]
+
+    def test_role_mappings_follow_the_imported_state(self) -> None:
+        """Issue #6: the permission map is the imported state's, not the initial one's.
+
+        The example item has no children and nothing modifies it after the
+        import, so nothing else gets the chance to repair its mappings.
+        """
+        assert roles_with(self.item, MANAGE_MEMBERSHIP) == ACTIVE_ROLES
+
+
+@pytest.mark.portal(content=[MEMBER_PROFILE], roles=["Manager"])
+class TestUpdateRoleMappings:
+    """What the patch adds, on a history restored by hand as the importer does."""
+
+    @pytest.fixture(autouse=True)
+    def _setup(self, member_profile: Any) -> None:
+        self.obj = member_profile
+        history = self.obj.workflow_history
+        # Write an ``active`` status straight into the history, with no
+        # transition — exactly what ``update_workflow_history`` does.
+        history[FOUNDATION_MEMBER_WORKFLOW] = history[FOUNDATION_MEMBER_WORKFLOW] + (
+            {
+                "action": "activate",
+                "actor": "admin",
+                "comments": "",
+                "time": DateTime(),
+                WORKFLOW_STATES: "active",
+            },
+        )
+
+    def test_premise_the_mappings_are_stale(self) -> None:
+        """The object is in its new state, with the old state's security."""
+        assert (
+            mw_api.get_state(self.obj, workflow_id=FOUNDATION_MEMBER_WORKFLOW)
+            == "active"
+        )
+        assert roles_with(self.obj, MANAGE_MEMBERSHIP) == PENDING_ROLES
+
+    def test_mappings_follow_the_restored_state(self) -> None:
+        """Each workflow applies the permission map of the state it is in."""
+        exportimport.update_role_mappings(self.obj)
+
+        assert roles_with(self.obj, MANAGE_MEMBERSHIP) == ACTIVE_ROLES
+
+    def test_other_workflows_mappings_are_untouched(self) -> None:
+        """The publication workflow is already in its state; nothing moves."""
+        before = roles_with(self.obj, "View")
+
+        exportimport.update_role_mappings(self.obj)
+
+        assert roles_with(self.obj, "View") == before
+
+    def test_returns_the_object(self) -> None:
+        """For chaining, like ``reindex_workflow_variables``."""
+        assert exportimport.update_role_mappings(self.obj) is self.obj
+
+    def test_security_is_reindexed_when_a_mapping_changed(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """A transition reindexes security; so must its stand-in."""
+        calls: list[None] = []
+        monkeypatch.setattr(
+            self.obj, "reindexObjectSecurity", lambda: calls.append(None)
+        )
+
+        exportimport.update_role_mappings(self.obj)
+
+        assert len(calls) == 1
+
+    def test_nothing_is_reindexed_when_nothing_changed(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """The updater runs for every imported object; most need no reindex."""
+        exportimport.update_role_mappings(self.obj)
+        calls: list[None] = []
+        monkeypatch.setattr(
+            self.obj, "reindexObjectSecurity", lambda: calls.append(None)
+        )
+
+        exportimport.update_role_mappings(self.obj)
+
+        assert calls == []

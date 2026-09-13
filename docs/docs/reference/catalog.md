@@ -68,6 +68,7 @@ The `reindex_workflow_states` event handler
 The `plone.exportimport` patch
 :   Covers content whose state arrives by import rather than by transition.
     `plone.exportimport` restores workflow state by assigning `workflow_history` directly, which fires no transition and so reaches neither mechanism above.
+    The same patch reapplies each workflow's permission map for the restored state, which a transition would also have done.
     See {doc}`api/exportimport`.
 
 ```{important}
