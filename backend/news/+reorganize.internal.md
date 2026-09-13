@@ -1,0 +1,1 @@
+Reorganized the backend into `utils`, `indexers`, `subscribers` and `restapi` subpackages. The `workflow_states` value helpers — `format_state`, `parse_state`, `WORKFLOW_STATES` and `STATE_SEPARATOR` — now live in `collective.multiworkflow.utils.workflow`, and remain importable from `collective.multiworkflow.indexers`. @ericof

@@ -4,8 +4,8 @@ Shared values for the package live here so test modules and ``conftest`` import
 them relatively.
 """
 
-from collective.multiworkflow.indexers import WORKFLOW_STATES
 from collective.multiworkflow.interfaces import IAdditionalWorkflows
+from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 from zope.interface import Interface
 
 

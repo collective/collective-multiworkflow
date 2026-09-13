@@ -1,7 +1,7 @@
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
-from collective.multiworkflow.indexers import format_state
-from collective.multiworkflow.indexers import WORKFLOW_STATES
 from collective.multiworkflow.querystring import query_index_modifiers
+from collective.multiworkflow.utils.workflow import format_state
+from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 from tests import PUBLICATION_WORKFLOW
 from typing import Any
 

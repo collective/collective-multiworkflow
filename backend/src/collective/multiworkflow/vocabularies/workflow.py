@@ -1,6 +1,6 @@
 """Vocabulary for workflow states duration range filtering."""
 
-from ..indexers import format_state
+from ..utils.workflow import format_state
 from plone import api
 from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFPlone.WorkflowTool import WorkflowTool

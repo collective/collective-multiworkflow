@@ -4,7 +4,8 @@
     i18n_domain="collective.multiworkflow"
     >
 
-  <include package=".serializer" />
-  <include package=".services" />
+  <include package=".history" />
+  <include package=".workflow" />
+
 
 </configure>

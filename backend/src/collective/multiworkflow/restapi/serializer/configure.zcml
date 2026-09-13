@@ -1,0 +1,10 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- More specific than plone.restapi's own registration, which is for
+       Interface, so vanilla content keeps the stock payload. -->
+  <adapter
+      factory=".workflow.WorkflowChainInfo"
+      name="workflow"
+      />
+
+</configure>

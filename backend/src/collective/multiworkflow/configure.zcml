@@ -23,7 +23,7 @@
   <include package=".indexers" />
   <include package=".querystring" />
   <include package=".restapi" />
-  <include package=".serializers" />
+  <include package=".subscribers" />
   <include package=".vocabularies" />
 
   <!-- Appends contributed workflows to the chain of participating content.

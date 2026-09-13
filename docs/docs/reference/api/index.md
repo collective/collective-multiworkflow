@@ -26,7 +26,9 @@ api
 declaration
 interfaces
 chain
+utils
 indexers
+subscribers
 querystring
 vocabularies
 exportimport
@@ -81,19 +83,38 @@ The adapter that appends contributed workflows to a type's configured chain.
     chain.additional_workflows_chain
 ```
 
-## `collective.multiworkflow.indexers`
+## `collective.multiworkflow.utils.workflow`
 
-The `workflow_states` catalog index and the values it holds.
+The values the `workflow_states` catalog index holds, and the helpers that build and read them.
 
 ```{eval-rst}
 .. autosummary::
 
-    indexers.WORKFLOW_STATES
-    indexers.STATE_SEPARATOR
-    indexers.format_state
-    indexers.parse_state
-    indexers.workflow_states
-    indexers.reindex_workflow_states
+    utils.workflow.WORKFLOW_STATES
+    utils.workflow.STATE_SEPARATOR
+    utils.workflow.format_state
+    utils.workflow.parse_state
+    utils.workflow.formatted_workflow_states
+```
+
+## `collective.multiworkflow.indexers.workflow_states`
+
+The indexer that fills the `workflow_states` catalog index.
+
+```{eval-rst}
+.. autosummary::
+
+    indexers.workflow_states.workflow_states
+```
+
+## `collective.multiworkflow.subscribers.reindex`
+
+The event subscriber keeping the index fresh for workflows with a state variable of their own.
+
+```{eval-rst}
+.. autosummary::
+
+    subscribers.reindex.reindex_workflow_states
 ```
 
 ## `collective.multiworkflow.querystring`

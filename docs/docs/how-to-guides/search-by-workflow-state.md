@@ -22,7 +22,7 @@ This guide shows you how to find content by its state in any workflow of its cha
 Query `workflow_states`, building the value with `format_state`.
 
 ```python
-from collective.multiworkflow.indexers import format_state
+from collective.multiworkflow.utils.workflow import format_state
 from plone import api
 
 active = api.content.find(
@@ -60,7 +60,7 @@ results = api.content.find(
 Use `parse_state` rather than splitting the string yourself.
 
 ```python
-from collective.multiworkflow.indexers import parse_state
+from collective.multiworkflow.utils.workflow import parse_state
 
 for brain in active:
     for value in brain.workflow_states:

@@ -62,7 +62,7 @@ To check a single object rather than trust the answer, compare what it says with
 
 ```python
 from collective.multiworkflow import api as mw_api
-from collective.multiworkflow.indexers import format_state
+from collective.multiworkflow.utils.workflow import format_state
 
 states = mw_api.get_states(obj)
 brain = api.content.find(UID=obj.UID())[0]

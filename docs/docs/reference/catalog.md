@@ -15,7 +15,7 @@ The `default` profile adds one `KeywordIndex` named `workflow_states` to `portal
 One index describes an object's whole chain, so a site gains no further indexes as behaviors contribute more workflows.
 
 ```{seealso}
-{doc}`api/indexers` and {doc}`api/querystring` for the generated API description.
+{doc}`api/utils`, {doc}`api/indexers`, {doc}`api/subscribers`, and {doc}`api/querystring` for the generated API description.
 ```
 
 ## Indexed values

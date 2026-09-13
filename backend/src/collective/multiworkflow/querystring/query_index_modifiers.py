@@ -1,8 +1,8 @@
 """Redirect ``review_state`` collection queries onto the chain index."""
 
-from ..indexers import format_state
-from ..indexers import STATE_SEPARATOR
-from ..indexers import WORKFLOW_STATES
+from ..utils.workflow import format_state
+from ..utils.workflow import STATE_SEPARATOR
+from ..utils.workflow import WORKFLOW_STATES
 from plone import api
 from plone.app.querystring.interfaces import IParsedQueryIndexModifier
 from Products.CMFPlone.WorkflowTool import WorkflowTool

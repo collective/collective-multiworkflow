@@ -8,8 +8,8 @@ permissions they declare, so **disjoint** sets compose and an **overlapping**
 one is left as whichever workflow transitioned last wrote it.
 """
 
-from collective.multiworkflow.indexers import WORKFLOW_STATES
 from collective.multiworkflow.interfaces import IAdditionalWorkflows
+from collective.multiworkflow.utils.workflow import WORKFLOW_STATES
 
 
 MEMBERSHIP_WORKFLOW = "membership_workflow"

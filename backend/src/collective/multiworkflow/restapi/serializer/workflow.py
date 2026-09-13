@@ -6,8 +6,8 @@ and the top-level ``transitions`` list is narrowed to the primary workflow so
 existing clients keep seeing publication transitions only.
 """
 
-from ..api import owning_workflow
-from ..interfaces import IAdditionalWorkflows
+from collective.multiworkflow.api import owning_workflow
+from collective.multiworkflow.interfaces import IAdditionalWorkflows
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.serializer.converters import json_compatible
 from plone.restapi.services.workflow.info import WorkflowInfo

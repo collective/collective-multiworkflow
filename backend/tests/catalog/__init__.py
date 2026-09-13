@@ -6,7 +6,7 @@ them relatively.
 The workflow this package builds keeps a **bespoke** state variable on purpose.
 That is the half of the freshness contract CMFCore does not cover — it reindexes
 only indexes named after a chain variable — so it is the half that exercises
-:func:`collective.multiworkflow.indexers.reindex_workflow_states`. The demo
+:func:`collective.multiworkflow.subscribers.reindex.reindex_workflow_states`. The demo
 workflow, which adopts the shared variable, covers the other half over in
 ``tests.demo``.
 """

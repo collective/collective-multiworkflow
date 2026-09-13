@@ -1,0 +1,1 @@
+Pointed the Python API reference, the how-to guides and the tutorial at the backend's new module layout, and added reference pages for `collective.multiworkflow.utils.workflow` and `collective.multiworkflow.subscribers.reindex`. @ericof

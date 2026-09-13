@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.multiworkflow"
+    >
+
+
+  <!-- The adapter alone is not enough: plone.restapi's service instantiates
+       WorkflowInfo directly rather than looking the adapter up, so the GET
+       registration has to be overridden for participating content too. -->
+  <plone:service
+      method="GET"
+      factory=".get.WorkflowChainInfoService"
+      for="collective.multiworkflow.interfaces.IAdditionalWorkflows"
+      permission="zope2.View"
+      name="@workflow"
+      />
+
+</configure>
