@@ -129,7 +129,10 @@ The chain adapter is registered for that base interface, so anything extending i
 Now register the behavior and the contribution in `configure.zcml`.
 
 ```xml
-<configure xmlns:plone="http://namespaces.plone.org/plone">
+<configure
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="my.package"
+    >
 
   <plone:behavior
       name="my.package.member"
@@ -141,12 +144,17 @@ Now register the behavior and the contribution in `configure.zcml`.
   <plone:additionalworkflows
       marker=".interfaces.IMember"
       workflows="membership_workflow"
+      label="Membership status"
       />
 
 </configure>
 ```
 
 That second directive is the declaration this whole package is built around: *content providing this marker also runs this workflow.*
+
+Its `label` is optional.
+It is the name the REST API and the Volto interface show for the workflow, in place of the workflow's title, and it is translated in the `i18n_domain` of this file.
+Without it, the workflow is shown under its own title, `Membership`.
 
 Restart your instance so the new ZCML is read, and reapply your package's profile so the workflow is installed.
 
