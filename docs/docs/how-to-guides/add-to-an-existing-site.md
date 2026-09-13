@@ -78,7 +78,7 @@ A mismatch means the index is stale for that object, and only a reindex fixes it
 ## 3. Check existing collections
 
 Stored collections need no edit.
-A `review_state` criterion is rewritten onto the new index at query time, and a bare state id is qualified with the site's default workflow.
+A `review_state` criterion whose values name no workflow is left on the stock `review_state` index, which still holds what it held before the add-on was installed.
 
 Spot-check the ones that matter most, all the same—a collection whose result count changes has something else going on, and you want to know before your editors do.
 

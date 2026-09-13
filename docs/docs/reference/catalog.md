@@ -77,17 +77,19 @@ What the catalog stores is always the indexer, never the workflow variable that 
 
 ## Query rewriting
 
-A parsed collection query against `review_state` is redirected to `workflow_states` by `ReviewStateModifier`, registered as an `IParsedQueryIndexModifier`.
+A parsed collection query against `review_state` is handled by `ReviewStateModifier`, registered as an `IParsedQueryIndexModifier`.
+It moves the query to `workflow_states` only when one of its values names a workflow.
 
-The rewriting is value-aware.
-
-- A bare state id, such as `published`, is qualified with the first workflow of the site's default chain.
-  A stored collection written before this package was installed therefore keeps working.
-- An already-qualified value is passed through unchanged.
+- A query none of whose values is qualified, such as `published`, stays on the stock `review_state` index, untouched.
+  A stored collection written before this package was installed therefore answers exactly as it did, for every content type, whichever workflow drives its `review_state`.
+- A query whose values are all qualified moves to `workflow_states`, with its values as they are.
+- A query mixing bare and qualified values moves to `workflow_states`, and each bare state id is qualified with the first workflow of the site's default chain.
+  The catalog intersects the results of different indexes, so splitting one criterion between the two would turn its *any of* into an *all of*.
 - A value that is not a string—a date range, say—is passed through unchanged.
-- Keys other than `query` and `not` are preserved, so the `and` operator of an *all of* criterion and the negation of an *excludes* criterion both survive.
+- When a query moves, keys other than `query` and `not` are preserved, so the `and` operator of an *all of* criterion and the negation of an *excludes* criterion both survive.
 
-A site that declares no default chain has nothing to attribute a bare id to, and the value is passed through unchanged.
+A criterion saved from the collection editor carries qualified values, because the editor offers only those, so it targets `workflow_states` from then on.
+A site that declares no default chain has nothing to attribute a bare id to, and in a mixed query that value is passed through unchanged.
 
 ## Vocabulary
 
@@ -95,4 +97,4 @@ A site that declares no default chain has nothing to attribute a bare id to, and
 Terms are keyed exactly as the index holds them, and titled `<workflow title>: <state title>`.
 
 The `default` profile makes it the value source of the existing **Review state** query field, replacing the vocabulary of plain `review_state` values.
-The collection editor therefore offers every state of every workflow under the criterion editors already know, and the values it stores are qualified ones that `ReviewStateModifier` passes through untouched.
+The collection editor therefore offers every state of every workflow under the criterion editors already know, and the values it stores are qualified ones that `ReviewStateModifier` moves onto `workflow_states` untouched.

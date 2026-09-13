@@ -92,8 +92,9 @@ Its vocabulary lists every state of every registered workflow, titled `<workflow
 
 A criterion written before the add-on was installed keeps working.
 
-Parsed `review_state` queries are redirected onto `workflow_states`, and a bare state id such as `published` is qualified with the first workflow of the site's default chain.
-The operator of an *all of* criterion and the negation of an *excludes* criterion are preserved.
+A parsed `review_state` query whose values name no workflow, such as `published`, is left on the stock `review_state` index and answers exactly as before.
+Only a query carrying a qualified value is moved onto `workflow_states`, with the operator of an *all of* criterion and the negation of an *excludes* criterion preserved.
+A criterion saved from the collection editor carries qualified values, so it is moved from then on.
 
 You do not need to rewrite stored collections.
 
