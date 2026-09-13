@@ -32,6 +32,7 @@ consume-the-rest-api
 customize-the-volto-components
 add-to-an-existing-site
 upgrade
+troubleshoot
 ```
 
 ## Getting set up
@@ -113,7 +114,6 @@ Find content by its state in any workflow, from code and from a collection.
 
 Find permissions claimed by more than one workflow, and resolve the overlap.
 ````
-`````
 
 ````{grid-item-card} React to another workflow
 :link: react-to-another-workflow
@@ -121,6 +121,7 @@ Find permissions claimed by more than one workflow, and resolve the overlap.
 
 Allow a transition only in a given state of another workflow, or transition one workflow when another one transitions.
 ````
+`````
 
 ## Building an interface
 
@@ -139,6 +140,19 @@ Read the chain, execute a transition, and read the merged history from a REST cl
 :link-type: doc
 
 Restyle the controls, read the chain in a component of your own, and shadow what the add-on ships.
+````
+`````
+
+## When something goes wrong
+
+`````{grid} 1 1 2 2
+:gutter: 3
+
+````{grid-item-card} Troubleshoot additional workflows
+:link: troubleshoot
+:link-type: doc
+
+Find the cause of a missing workflow, a misrouted transition, a search that finds nothing, and other symptoms.
 ````
 `````
 

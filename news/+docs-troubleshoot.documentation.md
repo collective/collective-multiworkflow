@@ -1,0 +1,1 @@
+Added a troubleshooting guide covering a chain missing its additional workflow, a transition reaching the wrong workflow, access changing after another workflow's transition, a search by an additional state that finds nothing, Volto showing only the publication workflow, content that predates a behavior, and an unexpected chain order. @ericof
