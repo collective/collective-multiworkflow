@@ -25,6 +25,7 @@ catalog
 rest-api
 volto
 profiles
+compatibility
 ```
 
 `````{grid} 1 1 2 2
@@ -70,5 +71,12 @@ The components, helpers, actions, and types the Volto add-on exports.
 :link-type: doc
 
 The GenericSetup profiles this package ships, and what each one applies.
+````
+
+````{grid-item-card} Compatibility
+:link: compatibility
+:link-type: doc
+
+The release status, the Plone, Python, and Volto versions tested, Classic UI, and the changelogs.
 ````
 `````

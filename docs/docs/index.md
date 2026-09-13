@@ -45,17 +45,20 @@ mw_api.get_states(member)
 {'simple_publication_workflow': 'published', 'membership_workflow': 'active'}
 ```
 
+**Status:** alpha, tested with Plone 6.1 and 6.2, and with Volto 19.3.0.
+{doc}`reference/compatibility` has the full matrix and links to the changelogs.
+
 ```{warning}
 This documentation was written with Claude Opus 5, following the [Plone documentation style skill](https://github.com/plone/plone-doc-style-skill), and reviewed by a human being.
 ```
 
 ## Where to start
 
-`````{grid} 1 1 2 2
-:gutter: 3
-
 Not sure an additional workflow is the right tool for your problem?
 {doc}`concepts/when-to-use` describes the problems it fits, and the signs of one it does not.
+
+`````{grid} 1 1 2 2
+:gutter: 3
 
 ````{grid-item-card} 🎓 Tutorial
 :link: tutorials/add-a-second-workflow
