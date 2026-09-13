@@ -42,9 +42,6 @@ The catalog indexes `review_state` and nothing else.
 `plone.restapi`'s `@workflow` reports the effective state; its `@history` reads `review_history` without naming a workflow, and so returns the first workflow's history and silently omits the rest.
 A second workflow could therefore be configured and still be invisible to search, to the REST API, and to the user interface.
 
-The mechanism worked.
-Everything built on top of it assumed it was not being used.
-
 ## What this add-on changes
 
 It addresses the three obstacles in turn.

@@ -118,9 +118,12 @@ Two details in there are the whole point of this file.
 
 `state_variable` is `workflow_states`, not `review_state`.
 This workflow will record its own state under its own name, so the publication workflow keeps `review_state` to itself.
+Every additional workflow declares that same name, and their states still never mix, because each workflow's status is recorded under the workflow's own id.
+{doc}`/concepts/state-variables` explains why the name is shared.
 
 The transition ids are prefixed with `membership_`.
 Transition ids have to be unique across every workflow in a chain, and a plain `activate` is much likelier to collide with something one day.
+{ref}`troubleshoot-transition` shows what a collision does.
 
 Register the workflow in `profiles/default/workflows.xml`.
 
@@ -183,6 +186,8 @@ Restart your instance so the new ZCML is read, and reapply your package's profil
 Enable **Member** on the Document type, in the types control panel or in your FTI.
 
 Now create a *new* Document and ask for its chain again.
+A new one, because the Document from step 1 joins the chain as well but is not reindexed, and step 6 searches the catalog.
+{doc}`/concepts/behavior-driven-assignment` explains what enabling a behavior does to existing content.
 
 ```python
 doc = api.content.create(
@@ -202,6 +207,9 @@ The workflow your content type was configured with comes first, and yours was ap
 That ordering is guaranteed, and the rest of the package relies on it.
 
 ## Step 5: Transition the membership workflow
+
+`collective.multiworkflow.api` provides helpers in the style of `plone.api` that know about every workflow in the chain.
+{doc}`/how-to-guides/read-and-transition-state` covers all of them.
 
 Read both states at once.
 
@@ -245,8 +253,9 @@ That is the guarantee at the heart of this package: `review_state` means what it
 
 ## Step 6: Find the document by its membership state
 
-Every workflow in the chain is indexed.
-Build the value with `format_state` and query for it.
+Every workflow in the chain is indexed, in one `workflow_states` catalog index whose values read `<workflow-id>|<state-id>`.
+{doc}`/concepts/the-workflow-states-index` explains why one index is enough.
+Build a value with `format_state` and query for it.
 
 ```python
 from collective.multiworkflow.utils.workflow import format_state
@@ -301,20 +310,18 @@ results = api.content.find(
 ['A Member Document']
 ```
 
-Two workflows, one query, one index.
-
 ## What you have built
 
 You gave a content type a second workflow, drove it independently of publication, and searched across both.
 
 Along the way you used the three things every additional workflow needs.
 
-- A **workflow definition** with its own `state_variable` and collision-proof transition ids.
+- A **workflow definition** with its own `state_variable` and prefixed transition ids.
 - A **marker interface** extending `IAdditionalWorkflows`.
 - A **contribution declaration** tying the two together.
 
 ## Where to go next
 
 - {doc}`/concepts/workflow-chains` explains what was actually happening under each of those steps.
-- {doc}`/how-to-guides/write-a-composing-workflow` covers the fourth constraint we did not need here: what to do when your workflow manages permissions.
-- {doc}`/reference/rest-api` shows how the chain reaches a REST client and the Volto interface.
+- {doc}`/how-to-guides/write-a-composing-workflow` covers what we did not need here: a workflow that manages permissions.
+- {doc}`/reference/rest-api` shows how the chain reaches a REST client, and {doc}`/reference/volto` describes the Volto add-on that renders it.

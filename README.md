@@ -12,9 +12,9 @@
 [![PyPI](https://img.shields.io/pypi/v/collective.multiworkflow)](https://pypi.org/project/collective.multiworkflow/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/collective.multiworkflow)](https://pypi.org/project/collective.multiworkflow/)
 [![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/collective.multiworkflow)](https://pypi.org/project/collective.multiworkflow/)
-
-
 [![npm](https://img.shields.io/npm/v/@plone-collective/volto-multiworkflow)](https://www.npmjs.com/package/@plone-collective/volto-multiworkflow)
+
+[![Documentation](https://img.shields.io/badge/docs-collective.github.io-0083be)](https://collective.github.io/collective-multiworkflow/)
 [![Storybook](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://collective.github.io/collective-multiworkflow/storybook/)
 
 
