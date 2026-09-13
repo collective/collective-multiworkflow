@@ -31,6 +31,7 @@ indexers
 subscribers
 querystring
 vocabularies
+restapi
 exportimport
 ```
 
@@ -134,6 +135,18 @@ Rewriting of `review_state` queries onto the chain index.
 .. autosummary::
 
     vocabularies.workflow.WorkflowStatesVocabulary
+```
+
+## `collective.multiworkflow.restapi.serializer`
+
+A patch to `plone.restapi`'s content serializer, and the summary metadata, adding `workflow_states` to the payloads.
+The patch is applied when the package's ZCML is loaded; nothing here is called directly.
+
+```{eval-rst}
+.. autosummary::
+
+    restapi.serializer.dxcontent.apply_patch
+    restapi.serializer.summary.JSONSummarySerializerMetadata
 ```
 
 ## `collective.multiworkflow.exportimport`

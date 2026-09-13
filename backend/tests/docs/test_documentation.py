@@ -8,6 +8,9 @@ would be free to describe an endpoint that no longer exists.
 """
 
 from collective.multiworkflow.demo.behavior import FOUNDATION_MEMBER_WORKFLOW
+from collective.multiworkflow.utils.workflow import format_state
+from DateTime import DateTime
+from plone.uuid.interfaces import IMutableUUID
 from tests import MEMBER_PROFILE
 from tests import PLAIN_DOCUMENT
 from tests import PUBLICATION_WORKFLOW
@@ -15,6 +18,7 @@ from tests.docs import save_example
 from typing import Any
 
 import pytest
+import transaction
 
 
 pytestmark = pytest.mark.portal(
@@ -24,6 +28,21 @@ pytestmark = pytest.mark.portal(
 
 #: Transition of the example membership workflow, as the demo profile ships it.
 ACTIVATE = "activate"
+
+#: A fixed UID for the object whose whole serialization is recorded. Content
+#: gets a random one at creation, which would rewrite the example on every run.
+PROFILE_UID = "55c25ebc220d400393574f37d648727c"
+
+#: A fixed effective date for the object a summary is recorded for. Unset, the
+#: summary reports the catalog's floor date in the machine's time zone, so the
+#: example would differ between a developer's laptop and CI.
+EFFECTIVE = DateTime("1995-07-31T17:30:00+00:00")
+
+#: What a freshly created participating Profile is in, in each workflow.
+INITIAL_STATES = [
+    format_state(PUBLICATION_WORKFLOW, "private"),
+    format_state(FOUNDATION_MEMBER_WORKFLOW, "pending"),
+]
 
 
 class TestWorkflowEndpoint:
@@ -83,3 +102,36 @@ class TestHistoryEndpoint:
         assert response.status_code == 200
         recorded = {entry["workflow_id"] for entry in response.json()}
         assert FOUNDATION_MEMBER_WORKFLOW in recorded
+
+
+class TestContentSerialization:
+    def test_content_get(self, functional_portal: Any, docs_session: Any) -> None:
+        """The content serialization carries every workflow's state."""
+        IMutableUUID(functional_portal[MEMBER_PROFILE["id"]]).set(PROFILE_UID)
+        transaction.commit()
+
+        response = save_example(
+            "content_get",
+            docs_session.get(f"/{MEMBER_PROFILE['id']}"),
+        )
+
+        assert response.status_code == 200
+        assert response.json()["workflow_states"] == INITIAL_STATES
+
+    def test_search_get(self, functional_portal: Any, docs_session: Any) -> None:
+        """Summaries of catalog results carry every workflow's state too."""
+        profile = functional_portal[MEMBER_PROFILE["id"]]
+        profile.setEffectiveDate(EFFECTIVE)
+        profile.reindexObject()
+        transaction.commit()
+
+        response = save_example(
+            "search_get",
+            docs_session.get(
+                "/@search", params={"portal_type": MEMBER_PROFILE["type"]}
+            ),
+        )
+
+        assert response.status_code == 200
+        items = response.json()["items"]
+        assert [item["workflow_states"] for item in items] == [INITIAL_STATES]

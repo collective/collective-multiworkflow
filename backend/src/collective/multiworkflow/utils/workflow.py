@@ -14,6 +14,10 @@ workflow using this name keeps the index fresh with no help from us;
 covers the ones that keep a state variable of their own. Sharing the name
 across workflows is safe because DCWorkflow keys its status records by workflow
 id, not by variable name.
+
+:func:`formatted_workflow_states` is the single source of those values: the
+catalog indexer and the REST API content serializer both return it, so the two
+cannot disagree.
 """
 
 from collective.multiworkflow.api import get_states

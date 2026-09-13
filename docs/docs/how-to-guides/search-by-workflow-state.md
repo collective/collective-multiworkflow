@@ -70,6 +70,19 @@ for brain in active:
 The metadata column is available on brains, so this needs no object wake-up.
 Values are in chain order, and the first is always the workflow driving `review_state`.
 
+## Read the states from a search request
+
+Summaries of catalog results carry `workflow_states`, so a search returns every item's states with no further request.
+
+```http
+GET /plone/@search?portal_type=Profile HTTP/1.1
+Accept: application/json
+```
+
+Each item of the response holds a `workflow_states` list, in the same format and order as the index.
+The serialization of a single object carries the same key.
+See {ref}`reference-rest-api-content`.
+
 ## Add a criterion to a collection
 
 In the collection editor, choose the **Review state** criterion.

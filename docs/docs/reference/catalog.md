@@ -38,6 +38,11 @@ The following rules hold for every indexed object.
 Build a value with `format_state`, and read one back with `parse_state`.
 Do not assemble or split the string by hand.
 
+## Metadata column
+
+The metadata column holds the same values as the index, in the same order, so a brain carries them without waking the object up.
+The REST API reads it to add `workflow_states` to every summary of a catalog result, as described in {ref}`reference-rest-api-summary`.
+
 ## The name is also a state variable
 
 `workflow_states` is both the name of the index and the `state_variable` an additional workflow should declare.

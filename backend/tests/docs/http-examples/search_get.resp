@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "@id": "http://localhost:55001/plone/@search?portal_type=Profile",
+    "items": [
+        {
+            "@id": "http://localhost:55001/plone/member-profile",
+            "@type": "Profile",
+            "description": "",
+            "effective": "1995-07-31T17:30:00+00:00",
+            "end": null,
+            "getObjSize": "0 KB",
+            "getRemoteUrl": null,
+            "head_title": null,
+            "image_field": "",
+            "image_scales": null,
+            "mime_type": "text/plain",
+            "nav_title": null,
+            "review_state": "private",
+            "start": null,
+            "title": "A Member Profile",
+            "type_title": "Profile",
+            "workflow_states": [
+                "simple_publication_workflow|private",
+                "foundation_member_workflow|pending"
+            ]
+        }
+    ],
+    "items_total": 1
+}

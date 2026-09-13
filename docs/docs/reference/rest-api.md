@@ -1,24 +1,28 @@
 ---
 myst:
   html_meta:
-    "description": "The additions this package makes to the @workflow and @history endpoints of plone.restapi."
-    "property=og:description": "The additions this package makes to the @workflow and @history endpoints of plone.restapi."
+    "description": "The additions this package makes to the @workflow and @history endpoints of plone.restapi, and to the serialization of content."
+    "property=og:description": "The additions this package makes to the @workflow and @history endpoints of plone.restapi, and to the serialization of content."
     "property=og:title": "REST API"
-    "keywords": "Plone, collective.multiworkflow, REST, API, workflow, history"
+    "keywords": "Plone, collective.multiworkflow, REST, API, workflow, history, serialization, workflow_states"
 ---
 
 (reference-rest-api)=
 
 # REST API
 
-This package extends two endpoints of {term}`plone.restapi`.
-Both additions are additive: every key those endpoints already returned is returned unchanged, with the same value.
+This package extends {term}`plone.restapi` in three places: the `@workflow` and `@history` endpoints, and the serialization of content itself.
+Every addition is additive: every key the API already returned is returned unchanged, with the same value.
 
-The additions apply to participating content only.
-Content that provides no participating behavior is served exactly the payload core produces, as shown under [Content without additional workflows](#content-without-additional-workflows).
+The additions to `@workflow` and `@history` apply to participating content only.
+Content that provides no participating behavior is served exactly the payload core produces there, as shown under [Content without additional workflows](#content-without-additional-workflows).
+
+The `workflow_states` key of the content serialization is the exception.
+It is added to every Dexterity object, participating or not, because every object with a workflow has a value for it.
 
 ```{seealso}
 The endpoints these extend are documented in the Plone REST API reference, under [Workflow](https://6.docs.plone.org/plone.restapi/docs/source/endpoints/workflow.html) and [History](https://6.docs.plone.org/plone.restapi/docs/source/endpoints/history.html).
+Content serialization and summaries are described under [Serialization](https://6.docs.plone.org/plone.restapi/docs/source/usage/serialization.html) and [Search](https://6.docs.plone.org/plone.restapi/docs/source/endpoints/searching.html).
 ```
 
 (reference-rest-api-workflow-get)=
@@ -146,6 +150,55 @@ Each workflow's `review_history` is read separately, so each workflow's own info
 An entry the guard hides is absent rather than redacted.
 ```
 
+(reference-rest-api-content)=
+
+## Content serialization
+
+The serialization of a content object—what `GET` on its URL returns—gains a `workflow_states` key.
+
+```{eval-rst}
+..  http:example:: curl httpie python-requests
+    :request: ../../../backend/tests/docs/http-examples/content_get.req
+```
+
+```{literalinclude} ../../../backend/tests/docs/http-examples/content_get.resp
+:language: http
+```
+
+### The `workflow_states` key
+
+`workflow_states` holds the object's state in every workflow of its chain, one `<workflow-id>|<state-id>` value per workflow, in chain order.
+These are exactly the values the `workflow_states` catalog index holds, as described in {doc}`catalog`.
+
+- The first value is always the workflow driving `review_state`, and it agrees with the `review_state` key of the same payload.
+- The key is present on every Dexterity object.
+  An object with no workflow at all reports an empty list.
+- For a historical version, requested through `GET @history/{version}`, the states are read from that version, which is where `review_state` is read from too.
+
+```{note}
+The key is added by wrapping the `__call__` method of `plone.restapi`'s `SerializeToJson` class in place.
+Its folder and collection serializers, and any serializer an add-on derives from them, reach that method through `super()`, so they carry the key too.
+A serializer overriding `__call__` without calling `super()` does not, and neither does the Plone site root, which has a serializer of its own.
+```
+
+(reference-rest-api-summary)=
+
+### Summaries of catalog results
+
+Summaries built from catalog results carry `workflow_states` as well, read from the metadata column of the same name.
+That covers the items of a folder and the results of `@search` and `@querystring-search`.
+
+```{eval-rst}
+..  http:example:: curl httpie python-requests
+    :request: ../../../backend/tests/docs/http-examples/search_get.req
+```
+
+```{literalinclude} ../../../backend/tests/docs/http-examples/search_get.resp
+:language: http
+```
+
+A client can therefore show each item's state in every workflow without one request per item.
+
 ## Compatibility
 
 | Payload | Before | After |
@@ -155,6 +208,8 @@ An entry the guard hides is absent rather than redacted.
 | `@workflow` `transitions` on participating content | every transition the chain offered | narrowed to the primary workflow |
 | `@history` entries | core's shape | one key added, `workflow_id` |
 | `POST @workflow/{transition}` | core's behavior | unchanged |
+| Content serialization | core's payload | one key added, `workflow_states` |
+| Summaries of catalog results | core's default fields | one field added, `workflow_states` |
 
 The examples on this page are generated by the test suite, in `backend/tests/docs/`, and are regenerated on every run.
 A payload that changes shape without the documentation changing with it fails the suite.
