@@ -92,6 +92,36 @@ export interface WorkflowInfo {
   chain?: WorkflowChainEntry[];
 }
 
+/**
+ * One `workflow_states` value: `<workflow-id>|<state-id>`.
+ *
+ * The same form the backend's `workflow_states` catalog index holds, and the
+ * token of the workflow states vocabulary.
+ */
+export type WorkflowStateValue = string;
+
+/** A `workflow_states` value split into its ids. */
+export interface ParsedWorkflowState {
+  /** Workflow id, e.g. `foundation_member_workflow`. */
+  workflow_id: string;
+  /** Id of the state that workflow is in, e.g. `pending`. */
+  state_id: string;
+}
+
+/**
+ * Anything the backend serializes with a `workflow_states` key.
+ *
+ * Every Dexterity object's serialization carries it, and so does each summary
+ * of a catalog result — a `@search` item, or a folder's `items`.
+ */
+export interface WithWorkflowStates {
+  /**
+   * The object's state in every workflow of its chain, in chain order: the
+   * primary workflow first. Absent from a backend that predates the key.
+   */
+  workflow_states?: WorkflowStateValue[];
+}
+
 /** Shape this add-on contributes to the Redux store. */
 export interface MultiWorkflowState {
   loading: boolean;

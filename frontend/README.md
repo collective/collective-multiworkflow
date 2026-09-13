@@ -30,9 +30,9 @@ Once installed, the workflow control in the toolbar renders one state selector p
 - **Shadowed `Workflow`** — the existing control gains one selector per additional workflow, rather than a separate menu entry, so all of an object's states are read and changed in one place.
 - **Shadowed `History`** — a merged history breaks the assumption that the preceding entry is the previous state, because it usually belongs to another workflow. This view threads each workflow through its own states, and names the workflow on every row once a history spans more than one.
 - **`AdditionalWorkflowMenu`** — shows one additional workflow's current state and the transitions available to the user, and executes them.
-- **`StateBadge`** — renders an additional workflow's state in listings.
-- **Payload-driven** — everything renders from the `chain` key of the `@workflow` endpoint's response. That key is absent on content with no additional workflows, in which case both shadowed components render exactly what upstream Volto renders.
-- **Typed contract** — the `WorkflowChainEntry`, `WorkflowState`, `WorkflowTransition`, `WorkflowInfo`, and `HistoryEntry` interfaces are exported and mirror the REST API payload, so consumers get the contract for free.
+- **`StateBadge`** — renders an additional workflow's state in listings, from a chain entry or from a `workflow_states` value. Content and search results already carry those values, so a listing needs no extra request per item.
+- **Payload-driven** — the controls render from the `chain` key of the `@workflow` endpoint's response. That key is absent on content with no additional workflows, in which case both shadowed components render exactly what upstream Volto renders.
+- **Typed contract** — the `WorkflowChainEntry`, `WorkflowState`, `WorkflowTransition`, `WorkflowInfo`, `HistoryEntry`, `WorkflowStateValue`, and `WithWorkflowStates` types are exported and mirror the REST API payloads, and the `workflow_states` helpers mirror the backend's, so consumers get the contract for free.
 - **No dependency on any specific behavior** — the add-on works with whatever additional workflows the backend exposes.
 
 ### Using the components directly
@@ -51,7 +51,7 @@ import {
 
 A transition's response is the last `review_history` entry rather than a workflow payload, so the chain has to be re-fetched afterwards. The connected wrapper already does this; a component driving `transitionMultiWorkflow` directly has to.
 
-Titles arrive already translated from the backend, so the components need no i18n of their own. Style them through the `data-workflow` and `data-state` attributes, which carry stable ids rather than translated text.
+Titles arrive already translated from the backend, a workflow's title being any label declared for it, so the components need no i18n of their own. Style them through the `data-workflow` and `data-state` attributes, which carry stable ids rather than translated text.
 
 ## Documentation
 

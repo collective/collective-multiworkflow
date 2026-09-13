@@ -32,14 +32,19 @@ Neither shadow changes what the component renders for content without additional
 
 `AdditionalWorkflow`
 :   Renders one additional workflow: its title, its current state, and the transitions available to the user.
+    The title is the label declared for the workflow on the backend, when there is one.
 
 `AdditionalWorkflowMenu`
 :   Renders the transitions of one additional workflow as a menu.
 
 `StateBadge`
 :   A compact label for one workflow's current state, for use in listings.
-    Takes an `entry` prop—one chain entry—and an optional `className`.
-    It emits `data-workflow` and `data-state` attributes carrying the stable ids, which is what styling and acceptance tests should key on rather than the translated titles.
+    It renders from either shape the backend serves, and takes an optional `className` with both.
+    Given an `entry`, one chain entry of the `@workflow` payload, it shows the translated state title, with the workflow's title in the `title` attribute.
+    Given a `value`, one `workflow_states` value of a content object or a catalog summary, it shows the optional translated `label`, or the state id when there is none.
+    A value with no separator renders nothing.
+    A listing can use `value` with no `@workflow` request per item.
+    Either way it emits `data-workflow` and `data-state` attributes carrying the stable ids, which is what styling and acceptance tests should key on rather than the translated titles.
 
 ## Helpers
 
@@ -67,8 +72,32 @@ Neither shadow changes what the component renders for content without additional
     The History view uses this to decide whether naming the workflow is worth a column.
 
 `getWorkflowTitles(chain?)`
-:   Maps every workflow id in a chain to its translated title.
+:   Maps every workflow id in a chain to its translated title, which is the label declared for the workflow when there is one.
     History entries carry only `workflow_id`, so a view that labels them reads the chain as well.
+
+`getWorkflowStates(item?)`
+:   The `workflow_states` values of a content object or a catalog summary, in chain order.
+    Empty when the item carries no such key.
+
+`getAdditionalWorkflowStates(item?)`
+:   Every `workflow_states` value after the first—the states of the additional workflows.
+
+`parseWorkflowState(value)`
+:   Splits a `workflow_states` value into `workflow_id` and `state_id`.
+    `undefined` for a value with no separator.
+
+`formatWorkflowState(workflowId, stateId)`
+:   Builds a `workflow_states` value out of the two ids.
+
+## Constants
+
+`WORKFLOW_STATE_SEPARATOR`
+:   The `|` separating the workflow id from the state id within a `workflow_states` value.
+
+`WORKFLOW_STATES_VOCABULARY`
+:   The name of the backend vocabulary holding one term per state of every workflow.
+    Its tokens are `workflow_states` values, and its titles read `<workflow>: <state>`, naming the workflow by any label declared for it.
+    Anyone who can view the context can read it, so it is where a listing takes the `label` of a value from.
 
 ## Actions
 
@@ -99,7 +128,7 @@ Content without additional workflows reduces to an empty `chain`, so a consumer 
 
 ## Types
 
-`WorkflowState`, `WorkflowTransition`, `WorkflowChainEntry`, `WorkflowInfo`, `HistoryEntry`, and `MultiWorkflowState` are exported from the package root.
+`WorkflowState`, `WorkflowTransition`, `WorkflowChainEntry`, `WorkflowInfo`, `HistoryEntry`, `MultiWorkflowState`, `WorkflowStateValue`, `ParsedWorkflowState`, and `WithWorkflowStates` are exported from the package root.
 
 They mirror the backend serializer exactly and are the single source of truth for consumers.
 They must be updated in the same commit as any serializer change.

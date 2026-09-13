@@ -29,11 +29,22 @@ export {
   spansMultipleWorkflows,
   threadPreviousStates,
 } from './helpers/history';
+export {
+  WORKFLOW_STATE_SEPARATOR,
+  WORKFLOW_STATES_VOCABULARY,
+  formatWorkflowState,
+  getAdditionalWorkflowStates,
+  getWorkflowStates,
+  parseWorkflowState,
+} from './helpers/states';
 export type {
   HistoryEntry,
   MultiWorkflowState,
+  ParsedWorkflowState,
+  WithWorkflowStates,
   WorkflowChainEntry,
   WorkflowInfo,
   WorkflowState,
+  WorkflowStateValue,
   WorkflowTransition,
 } from './types';
