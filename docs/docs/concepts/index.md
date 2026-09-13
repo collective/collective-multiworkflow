@@ -24,6 +24,7 @@ state-variables
 permissions
 the-workflow-states-index
 scope
+when-to-use
 ```
 
 `````{grid} 1 1 2 2
@@ -71,6 +72,13 @@ Why one catalog index describes a whole chain, and why existing `review_state` q
 :link-type: doc
 
 What the package deliberately does not do.
+````
+
+````{grid-item-card} When an additional workflow fits
+:link: when-to-use
+:link-type: doc
+
+The kind of problem the package solves, three scenarios it fits, and the signs of one it does not.
 ````
 `````
 

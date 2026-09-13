@@ -54,6 +54,9 @@ This documentation was written with Claude Opus 5, following the [Plone document
 `````{grid} 1 1 2 2
 :gutter: 3
 
+Not sure an additional workflow is the right tool for your problem?
+{doc}`concepts/when-to-use` describes the problems it fits, and the signs of one it does not.
+
 ````{grid-item-card} 🎓 Tutorial
 :link: tutorials/add-a-second-workflow
 :link-type: doc
