@@ -27,6 +27,7 @@ write-a-composing-workflow
 read-and-transition-state
 search-by-workflow-state
 audit-permission-conflicts
+react-to-another-workflow
 consume-the-rest-api
 customize-the-volto-components
 add-to-an-existing-site
@@ -113,6 +114,13 @@ Find content by its state in any workflow, from code and from a collection.
 Find permissions claimed by more than one workflow, and resolve the overlap.
 ````
 `````
+
+````{grid-item-card} React to another workflow
+:link: react-to-another-workflow
+:link-type: doc
+
+Allow a transition only in a given state of another workflow, or transition one workflow when another one transitions.
+````
 
 ## Building an interface
 
