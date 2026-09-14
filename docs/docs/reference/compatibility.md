@@ -25,7 +25,7 @@ Both packages are in alpha.
 The Python API, the REST API additions, and the Volto components may change before 1.0.0.
 Read the changelog before upgrading, and follow {doc}`/how-to-guides/upgrade` from one release to the next.
 
-The badges on the {doc}`home page </index>` show the latest release of each package.
+The latest release of each package is listed on [PyPI](https://pypi.org/project/collective.multiworkflow/) and [npm](https://www.npmjs.com/package/@plone-collective/volto-multiworkflow).
 
 ## Backend
 
