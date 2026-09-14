@@ -1,1 +1,0 @@
-Corrected the docstring of `owning_workflow`, which claimed it resolves a shared transition id the way `doActionFor` does; it attributes the id to the first workflow defining it, while `doActionFor` picks the first workflow able to execute it. @ericof

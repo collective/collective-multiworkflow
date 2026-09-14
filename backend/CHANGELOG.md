@@ -9,6 +9,33 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.0a2 (2026-09-13)
+
+
+### Feature
+
+- Added `workflow_states` to the REST API serialization of every Dexterity object, and to the summaries of catalog results, so an object's state in every workflow of its chain comes back with the object or the listing itself. The key is added by wrapping `plone.restapi`'s `SerializeToJson.__call__` in place, so its folder and collection serializers, and any serializer an add-on derives from them, carry it too. @ericof [#8](https://github.com/collective/collective-multiworkflow/issues/8)
+- Added an optional `label` attribute to the `<plone:additionalworkflows />` directive, naming the workflow in the user interface in place of its title. The label is translatable, in the `i18n_domain` of the ZCML file declaring it: the `@workflow` endpoint reports it as the chain entry's `title`, and the vocabulary of the Review state collection criterion names the workflow's states with it. A directive with a `label` must list exactly one workflow; without one, the workflow's title is used as before. @ericof [#9](https://github.com/collective/collective-multiworkflow/issues/9)
+
+
+### Bugfix
+
+- Fixed imported content keeping the role mappings of its workflows' initial states. `plone.exportimport` restores workflow state by writing `workflow_history` directly, which fires no transition, so an additional workflow's permission map was never applied: an object imported as `active` kept the security of `pending`, unless some later event happened to recompute it. The existing patch to `update_workflow_history` now also reapplies each workflow's permission map for the restored state, and reindexes the object's security when a mapping changed. Content imported before this fix is repaired by running `updateRoleMappings` on `portal_workflow`. @ericof [#6](https://github.com/collective/collective-multiworkflow/issues/6)
+- Loaded the `Products.CMFEditions` permission definitions before registering the `@history` service. Startup no longer fails with a `ComponentLookupError` for `CMFEditions.AccessPreviousVersions` when another package includes this one before `Products.CMFEditions` has been configured. @ericof [#7](https://github.com/collective/collective-multiworkflow/issues/7)
+- Left a `review_state` collection criterion whose values name no workflow on the stock `review_state` index, instead of moving it onto `workflow_states` and qualifying its values with the site's default workflow. A collection written before the add-on was installed now answers exactly as it did, including for content types driven by another workflow, until it is saved again from the collection editor. @ericof [#10](https://github.com/collective/collective-multiworkflow/issues/10)
+
+
+### Internal
+
+- Added tests pinning down the behavior the documentation describes: what enabling a participating behavior does to existing content, the order in which several behaviors' workflows are appended, how `plone.api` itself behaves on a chain with an additional workflow, what Classic UI's State menu and history viewlet show, the guard and subscriber patterns for making one workflow respond to another, each check the troubleshooting guide gives, and the tutorial followed step by step from its own workflow definition and ZCML. @ericof 
+- Regenerated the message catalogs, picking up the reworded description of the example content profile. @ericof 
+- Reorganized the backend into `utils`, `indexers`, `subscribers` and `restapi` subpackages. The `workflow_states` value helpers — `format_state`, `parse_state`, `WORKFLOW_STATES` and `STATE_SEPARATOR` — now live in `collective.multiworkflow.utils.workflow`, `reindex_workflow_states` in `collective.multiworkflow.subscribers.reindex`, and the REST API classes in `collective.multiworkflow.restapi.serializer.workflow` and `collective.multiworkflow.restapi.services`. Every one of them remains importable from its 1.0.0a1 location, except the `workflow_states` indexer function, whose name `collective.multiworkflow.indexers.workflow_states` now belongs to the module holding it. @ericof 
+
+
+### Documentation
+
+- Corrected the docstring of `owning_workflow`, which claimed it resolves a shared transition id the way `doActionFor` does; it attributes the id to the first workflow defining it, while `doActionFor` picks the first workflow able to execute it. @ericof 
+
 ## 1.0.0a1 (2026-08-14)
 
 

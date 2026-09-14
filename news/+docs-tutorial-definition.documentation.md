@@ -1,1 +1,0 @@
-Fixed the workflow definition in the tutorial and the fragments of it in the guide to writing a composing workflow: DCWorkflow refused to import it because its transitions lacked the required `before_script` and `after_script` attributes, and without an `<action>` element its transitions would never have been offered to users. @ericof

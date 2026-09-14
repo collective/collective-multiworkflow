@@ -1,1 +1,0 @@
-Removed closing sentences that added no information, and linked the facts the tutorial relied on before introducing them: the shared state variable, transition id collisions, what enabling a behavior does to existing content, the API helpers, and the format of the catalog index. @ericof

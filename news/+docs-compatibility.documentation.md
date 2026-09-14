@@ -1,1 +1,0 @@
-Added a compatibility reference listing the release status, the Plone, Python, and Volto versions the test suites run against, what Classic UI shows, the changelogs, and where each package is published, and a status line on the home page linking to it. @ericof

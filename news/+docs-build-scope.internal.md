@@ -1,1 +1,0 @@
-Built the documentation on every change to the backend or the frontend, not only on changes under `docs/`. The Pages deploy is triggered by frontend changes and downloads the artifact this build produces from the same run, so a skipped build left it with nothing to download. @ericof

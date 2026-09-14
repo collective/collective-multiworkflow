@@ -1,1 +1,0 @@
-Corrected how the documentation describes a transition id shared by two workflows in a chain: `doActionFor` executes it in the first workflow that can execute it from its current state, not in the first workflow that defines it, so the workflow a transition is listed under can differ from the one it moves. @ericof

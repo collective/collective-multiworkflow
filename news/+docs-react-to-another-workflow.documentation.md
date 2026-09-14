@@ -1,1 +1,0 @@
-Added a guide to making one workflow react to another: a guard expression that reads another workflow's state through `portal_workflow.getInfoFor`, and an `IAfterTransitionEvent` subscriber that transitions another workflow. @ericof

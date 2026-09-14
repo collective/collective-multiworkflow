@@ -1,1 +1,0 @@
-Added an upgrade guide, covering the move from 1.0.0a1 to 1.0.0a2: the moved backend modules, the `review_state` criteria left on the stock index, repairing the role mappings of content imported with 1.0.0a1, the new `workflow_states` key in REST API responses, workflow labels, and what changes for Volto projects. @ericof

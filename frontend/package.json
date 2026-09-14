@@ -1,6 +1,6 @@
 {
   "name": "@plone-collective/volto-multiworkflow-dev",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Assign additional workflows to content types through behaviors, with full support in plone.restapi and Volto.",
   "author": "\u00c9rico Andrei",
   "homepage": "https://github.com/collective/collective-multiworkflow",
