@@ -93,8 +93,7 @@ See {doc}`/reference/profiles` for everything the profile touches.
 
 ## 4. Verify the installation
 
-Query the new index.
-An empty result is the expected answer at this point, and it confirms the index exists.
+Check that the catalog now has the index.
 
 ```python
 from plone import api

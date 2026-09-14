@@ -9,27 +9,6 @@ myst:
 
 # Multi-Workflow Support for Plone
 
-<div align="center">
-
-[![Built with Cookieplone](https://img.shields.io/badge/built%20with-Cookieplone-0083be.svg?logo=cookiecutter)](https://github.com/plone/cookieplone-templates/)
-
-
-[![PyPI](https://img.shields.io/pypi/v/collective.multiworkflow)](https://pypi.org/project/collective.multiworkflow/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/collective.multiworkflow)](https://pypi.org/project/collective.multiworkflow/)
-[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/collective.multiworkflow)](https://pypi.org/project/collective.multiworkflow/)
-
-
-[![npm](https://img.shields.io/npm/v/@plone-collective/volto-multiworkflow)](https://www.npmjs.com/package/@plone-collective/volto-multiworkflow)
-[![Storybook](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://collective.github.io/collective-multiworkflow/storybook/)
-
-
-[![GitHub contributors](https://img.shields.io/github/contributors/collective/collective-multiworkflow)](https://github.com/collective/collective-multiworkflow)
-[![GitHub Repo stars](https://img.shields.io/github/stars/collective/collective-multiworkflow?style=social)](https://github.com/collective/collective-multiworkflow)
-
-[![CI](https://github.com/collective/collective-multiworkflow/actions/workflows/main.yml/badge.svg)](https://github.com/collective/collective-multiworkflow/actions/workflows/main.yml)
-
-</div>
-
 `collective.multiworkflow` lets a behavior add workflows to a content type's workflow chain, and carries those workflows through the catalog, the REST API, and Volto.
 
 When a content type provides a participating behavior, this add-on **appends** one or more workflows to that type's chain.
@@ -45,11 +24,17 @@ mw_api.get_states(member)
 {'simple_publication_workflow': 'published', 'membership_workflow': 'active'}
 ```
 
+**Status:** alpha, tested with Plone 6.1 and 6.2, and with Volto 19.3.0.
+{doc}`reference/compatibility` has the full matrix and links to the changelogs.
+
 ```{warning}
 This documentation was written with Claude Opus 5, following the [Plone documentation style skill](https://github.com/plone/plone-doc-style-skill), and reviewed by a human being.
 ```
 
 ## Where to start
+
+Not sure an additional workflow is the right tool for your problem?
+{doc}`concepts/when-to-use` describes the problems it fits, and the signs of one it does not.
 
 `````{grid} 1 1 2 2
 :gutter: 3

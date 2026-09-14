@@ -40,7 +40,8 @@ It simply grants—or withholds—access according to a workflow that is no long
 ```
 
 The rest of the composition rules follow the same logic.
-Transition ids must be unique across the chain, because `doActionFor` resolves an ambiguous id to the first workflow that defines it, and a shadowed transition can then only be reached by naming its workflow explicitly.
+Transition ids must be unique across the chain, because `doActionFor` executes an ambiguous id in the first workflow, in chain order, that can execute it from its current state.
+Which workflow moves then depends on the states the object happens to be in, and only naming the workflow explicitly takes that choice away from them.
 
 ## Why the package reports rather than arbitrates
 

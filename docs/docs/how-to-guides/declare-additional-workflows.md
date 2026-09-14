@@ -93,6 +93,28 @@ Enable it as you would any behavior, in the type's FTI.
 
 Every object of that type now resolves a chain with your workflow appended.
 
+If the type contributes workflows from more than one behavior, {ref}`reference-zcml-order` gives the order they are appended in.
+
+## 5. Bring existing content up to date
+
+Skip this step if the type has no content yet.
+
+Existing objects of the type join the chain at once and read the contributed workflow's initial state.
+They are not reindexed, though, and the workflow's permission map is not applied to them, so do both.
+
+```python
+from plone import api
+
+catalog = api.portal.get_tool("portal_catalog")
+catalog.reindexIndex("workflow_states", None)
+
+wftool = api.portal.get_tool("portal_workflow")
+wftool.updateRoleMappings()
+```
+
+Both calls walk the whole site, so run them once after enabling the behavior, from an upgrade step or a maintenance script.
+`updateRoleMappings` changes nothing unless the contributed workflow manages permissions.
+
 ## Register from Python instead
 
 Use `contributes` where ZCML cannot express the declaration—building a contribution from configuration read at start-up, for instance.

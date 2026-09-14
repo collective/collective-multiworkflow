@@ -1,0 +1,1 @@
+Fixed the installation guide's verification step, which described an empty query result for code that checks the index exists, and showed the optional `label` attribute in the tutorial's directive example. @ericof

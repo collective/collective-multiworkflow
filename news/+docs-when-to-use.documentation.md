@@ -1,0 +1,1 @@
+Added a concepts page on when an additional workflow fits, with membership, translation status, and records retention scenarios and the signs of a problem that calls for something else, and linked it from the home page. @ericof

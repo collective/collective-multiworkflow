@@ -24,9 +24,10 @@ Satisfy them and your workflow composes with any other that satisfies them too.
 
 ```xml
 <dc-workflow
-    workflow_id="foundation_member_workflow"
-    state_variable="workflow_states"
+    workflow_id="membership_workflow"
     title="Membership"
+    state_variable="workflow_states"
+    initial_state="pending"
     >
 ```
 
@@ -43,15 +44,24 @@ A bespoke name still works—an event handler covers it—but it costs a full me
 Transition ids must be unique across every workflow in the chains your workflow will join.
 
 ```xml
-<transition transition_id="activate"
-            new_state="active"
+<transition transition_id="membership_activate"
             title="Activate membership"
+            new_state="active"
             trigger="USER"
-            />
+            before_script=""
+            after_script=""
+            >
+  <action category="workflow"
+          url="%(content_url)s/content_status_modify?workflow_action=membership_activate"
+          >Activate membership</action>
+  <guard>
+    <guard-permission>Modify portal content</guard-permission>
+  </guard>
+</transition>
 ```
 
-`doActionFor` resolves an ambiguous id to the first workflow in the chain that defines it.
-A transition named `publish` in your workflow is therefore unreachable behind the publication workflow's own `publish`, except by naming your workflow explicitly.
+`doActionFor` executes an ambiguous id in the first workflow, in chain order, that can execute it from its current state.
+A transition named `publish` in your workflow is therefore shadowed by the publication workflow's own `publish` whenever that one is available, and reached without naming your workflow only while it is not.
 
 Prefixing ids with something specific to your domain, such as `membership_activate` rather than `activate`, is the cheapest way to guarantee this in a site whose chains you do not control.
 
@@ -86,7 +96,7 @@ Then check the transition ids resolve to the workflows you expect.
 ```python
 owners = mw_api.owning_workflow(obj)
 
-assert owners["activate"] == "foundation_member_workflow"
+assert owners["membership_activate"] == "membership_workflow"
 ```
 
 A transition id attributed to a workflow you did not expect is a shadowing collision.

@@ -111,7 +111,8 @@ curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
 ```
 
 Take the `@id` from the payload rather than building the URL yourself.
-A transition id defined by more than one workflow in the chain is attributed to the first workflow that defines it, and the reported `@id` already resolves that collision the way the workflow tool does.
+A transition id defined by more than one workflow in the chain is listed under the first workflow that defines it, while a `POST` to its `@id` is executed in the first workflow that can execute it from its current state.
+The two can differ, which is one more reason for transition ids that no other workflow in the chain uses; {ref}`troubleshoot-transition` shows how to find a shared one.
 
 ## Re-read the state after a transition
 

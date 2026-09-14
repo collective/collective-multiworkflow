@@ -1,0 +1,1 @@
+Split the REST API reference's compatibility table into unchanged, added and changed payloads, stated the narrowed `transitions` list as the one change to an existing key, moved the disclosure that `plone.restapi`'s content serializer is patched to the top of its section, and noted that the demo's bare transition ids predate the prefixing advice. @ericof
